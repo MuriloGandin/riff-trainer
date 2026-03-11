@@ -1,0 +1,31 @@
+h1 {
+    text-align: center;
+}
+
+body {
+    /* background-color: rgb(77, 29, 67); */
+}
+
+#notation {
+    text-align: center;
+}
+
+.exercises-selector {
+    margin: 100px 20px;
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
+}
+
+.exercises-selector button {
+    padding: 9px;
+    border-radius: 8px;
+    background-color: rgb(88, 11, 11);
+    color: rgb(255, 255, 255);
+    transition: all ease 0.5s;
+}
+
+.exercises-selector button:hover {
+    cursor: pointer;
+    scale: 1.3;
+}

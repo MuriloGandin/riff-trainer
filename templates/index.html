@@ -1,16 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Riff Trainer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     <h1>Riff Trainer</h1>
-    <p>Exercicio: <b>exercicio 1</b></p>
-    <div></div>
-    <button>Acertou</button>
-    <button>Errou</button>
-    <button>Próximo</button>
+    <h3>Chose your <b>exercise</b></h3>
+    <div class="exercises-selector">
+        <form action="/tab" method="post">
+            <input name="tab" type="hidden" value="alternate">
+            <button type="submit">Alternate picking</button>
+        </form>
+        <form action="/tab" method="post">
+            <input name="tab" type="hidden" value="sweep">
+            <button type="submit">Sweeping</button>
+        </form>
+        <form action="/tab" method="post">
+            <input name="tab" type="hidden" value="spider">
+            <button type="submit">Spider</button>
+        </form>
+    </div>
+    
+ 
+    
+    <script src="https://unpkg.com/vextab/releases/div.prod.js"></script>
+    <script src="{{ url_for('static', filename='js/vextab.js') }}"></script>
 </body>
 </html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riff Trainer - Tab</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>{{ exercise }} picking exercise</h1>
+    <div class="vextab-auto" id="notation"
+        width=680 scale=1.0 editor="true"
+        editor-width=680 editor-height=330>
+        {{ tab }}
+    </div>    
+
+    <script src="https://unpkg.com/vextab/releases/div.prod.js"></script>
+    <script src="{{ url_for('static', filename='js/vextab.js') }}"></script>
+</body>
+</html>

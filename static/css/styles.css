@@ -1,9 +1,14 @@
+.dark h1, .dark h3 {
+    text-align: center;
+    color: #e4e4e4;
+}
+
 h1 {
     text-align: center;
 }
 
-body {
-    /* background-color: rgb(77, 29, 67); */
+.dark {
+    background-color: #242121;
 }
 
 #notation {
@@ -20,12 +25,20 @@ body {
 .exercises-selector button {
     padding: 9px;
     border-radius: 8px;
-    background-color: rgb(88, 11, 11);
-    color: rgb(255, 255, 255);
+    background-color: #3b82f6;
+    color: #e4e4e4;
     transition: all ease 0.5s;
 }
 
 .exercises-selector button:hover {
     cursor: pointer;
     scale: 1.3;
+}
+
+.header-option {
+    background-color: #3b82f6;
+    padding: 5px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #e4e4e4;
 }

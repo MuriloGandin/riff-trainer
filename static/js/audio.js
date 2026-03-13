@@ -1,4 +1,4 @@
-document.querySelector("#play").addEventListener("click", async () => {
+document.querySelector("#preview").addEventListener("click", async () => {
     await Tone.start();
     const synth = new Tone.Synth().toDestination();
     const now = Tone.now();

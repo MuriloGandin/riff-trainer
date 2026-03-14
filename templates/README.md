@@ -2,6 +2,9 @@
 
 ## Main structure
 ### app.py
+
+#### SQLite → Flask → JSON → JavaScript → Tone.js
+
 ### templates
 ### static
 ### riffs.db

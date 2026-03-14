@@ -21,7 +21,7 @@ def tab():
     selected = tabs[chosen]
     return render_template("tab.html", tab=selected, exercise=chosen)
 
-@app.route("/tab/<int:riff_id>")
+@app.route("/riff/<int:riff_id>")
 def get_riff(riff_id):
     
     conn = sqlite3.connect("riffs.db")

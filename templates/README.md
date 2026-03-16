@@ -7,5 +7,7 @@
 
 ### templates
 ### static
+#### audio.js 
+Structure: get JSON for the selected tab > convert atributes to Tone.JS notation > schedule all of converted tab's notes > play the preview when the user clicks a "preview" button
 ### riffs.db
 ### noteinsert.py

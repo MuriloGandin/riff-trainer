@@ -8,7 +8,7 @@ const tuning = {
     1: "E4"
 };
 
-function tabToNote (string, fret) {
+const tabToNote = (string, fret) => {
 
     const base = tuning[string]
 
@@ -17,7 +17,7 @@ function tabToNote (string, fret) {
 }
 
 // Convert the original array to a Tone.js compatible array
-function convertNotes(notes) {
+const convertNotes = (notes) => {
     return notes.map(note => ({
         pitch: tabToNote(note.string, note.fret),
         duration: note.duration,
@@ -32,11 +32,47 @@ async function loadRiff(id) {
 
     const notes = await response.json()
 
-    console.log("loaded")
-
+    // At this point, the JSON is loaded
 
     const converted = convertNotes(notes)
 
-    console.log(converted)
+    return converted
 }
-loadRiff(1)
+
+let synth 
+
+function riffPlayer(bpm, convertedNotes) {
+
+    // Reset the sequences player's position
+    Tone.Transport.stop();
+    Tone.Transport.cancel();
+    Tone.Transport.position = 0;
+
+    Tone.Transport.bpm.value = bpm;
+
+    const secondsPerBeat = 60 / bpm;
+
+    convertedNotes.forEach(note => {
+        // Convert music notation rhythm to seconds
+        const timeInSeconds = secondsPerBeat * note.time;
+
+        Tone.Transport.schedule((time) => {
+            synth.triggerAttackRelease(note.pitch, note.duration, time)
+        }, timeInSeconds)
+
+    });
+
+    // Play the result
+    Tone.Transport.start()
+}
+
+document.querySelector("#preview").addEventListener("click", async function() {
+
+    await Tone.start()
+
+    if(!synth) {
+        synth = new Tone.Synth().toDestination()
+    }
+    const converted = await loadRiff(1)
+    riffPlayer(120, converted)
+})

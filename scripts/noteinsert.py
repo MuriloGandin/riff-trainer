@@ -4,9 +4,9 @@ import sqlite3
 conn = sqlite3.connect("riffs.db")
 cursor = conn.cursor()
 
-riff_name = "sweep"
+riff_name = "alternate"
 tempo = "100"
-compass = "3/3"
+compass = "4/4"
 
 cursor.execute(
     """
@@ -17,13 +17,24 @@ cursor.execute(
 
 riff_id = cursor.lastrowid
 
+# Format: (string, fret)
 riff_notes = [
-    (5, 10),
-    (4, 9),
-    (3, 8),
-    (2, 7),
-    (3, 8),
-    (4, 9)
+    (6, 5),
+    (6, 6),
+    (6, 7),
+    (5, 8),
+    (6, 5),
+    (6, 6),
+    (5, 7),
+    (6, 8),
+    (6, 5),
+    (5, 6),
+    (6, 7),
+    (6, 8),
+    (5, 5),
+    (6, 6),
+    (6, 7),
+    (6, 8)
 ]
 
 beat_position = 0

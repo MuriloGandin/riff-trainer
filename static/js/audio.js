@@ -73,6 +73,13 @@ document.querySelector("#preview").addEventListener("click", async function() {
     if(!synth) {
         synth = new Tone.Synth().toDestination()
     }
-    const converted = await loadRiff(1)
+    const id = document.querySelector("#tabId").dataset.id
+    if (id == "inexistent") {
+        alert ("Preview unavaliable")
+        return
+    }
+    const converted = await loadRiff(id)
     riffPlayer(120, converted)
+    console.log("Preview played")
+    console.log("loaded" + id)
 })

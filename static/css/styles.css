@@ -43,11 +43,16 @@ h1 {
     color: #e4e4e4;
 }
 
+.tab-container {
+    position: relative;
+    display: inline-block;
+}
+
 .playback-cursor {
     position: absolute;
-    height: 100px;
-    /* width: 2px; */
     background: red;
     top: 0;
+    bottom: 0;
     pointer-events: none;
+    width: 2px;
 }

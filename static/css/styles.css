@@ -42,3 +42,12 @@ h1 {
     text-decoration: none;
     color: #e4e4e4;
 }
+
+.playback-cursor {
+    position: absolute;
+    height: 100px;
+    /* width: 2px; */
+    background: red;
+    top: 0;
+    pointer-events: none;
+}

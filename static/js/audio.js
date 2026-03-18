@@ -83,3 +83,8 @@ document.querySelector("#preview").addEventListener("click", async function() {
     console.log("Preview played")
     console.log("loaded" + id)
 })
+
+window.data = {
+    notes: "abc",
+    time: 123
+}

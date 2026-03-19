@@ -71,5 +71,6 @@ def get_riff(riff_id):
 
     return jsonify(notes_list)
 
+# Run app in debug mode
 if __name__ == "__main__":
     app.run(debug=True)

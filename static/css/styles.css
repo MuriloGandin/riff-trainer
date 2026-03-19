@@ -45,7 +45,8 @@ h1 {
 
 .tab-container {
     position: relative;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
 }
 
 .playback-cursor {

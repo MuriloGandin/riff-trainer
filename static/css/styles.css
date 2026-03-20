@@ -13,6 +13,7 @@ h1 {
 
 #notation {
     text-align: center;
+    position: relative;
 }
 
 .exercises-selector {
@@ -56,9 +57,9 @@ h1 {
     bottom: 0;
     left: 0;
     pointer-events: none;
-    width: 2px;
-}
-
-#notation {
-  position: relative;
+    width: 5px;
+    border-radius: 30px;
+    margin-bottom: 10%;
+    margin-top: 7%;
+    opacity: 30%;
 }

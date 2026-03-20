@@ -25,6 +25,19 @@ const convertNotes = (notes) => {
     }))
 }
 
+const previewBpm = 120;
+
+function calculateTotalTime(notes) {
+    let totalTime = 0;
+    notes.forEach(note => {
+        const noteValue = parseInt(note.duration);
+        const beats = 4 / noteValue;
+        const durationSeconds = beats * (60 / previewBpm);
+        totalTime += durationSeconds
+    });
+    return totalTime
+}
+
 // Import JSON file to get each riff's pitch and rhythm
 async function loadRiff(id) {
     
@@ -36,6 +49,8 @@ async function loadRiff(id) {
 
     const converted = convertNotes(notes)
 
+    window.totalPreviewTime = calculateTotalTime(converted)
+    
     return converted
 }
 
@@ -52,6 +67,7 @@ function riffPlayer(bpm, convertedNotes) {
 
     const secondsPerBeat = 60 / bpm;
 
+
     convertedNotes.forEach(note => {
         // Convert music notation rhythm to seconds
         const timeInSeconds = secondsPerBeat * note.time;
@@ -59,16 +75,24 @@ function riffPlayer(bpm, convertedNotes) {
         Tone.Transport.schedule((time) => {
             synth.triggerAttackRelease(note.pitch, note.duration, time)
         }, timeInSeconds)
-
     });
 
-    // Play the result
+    // Wait for cursor and play the result
+    window.startCursor();
     Tone.Transport.start()
 }
+
+function riffStop () {
+    Tone.Transport.stop();
+    Tone.Transport.cancel();
+    Tone.Transport.position = 0;
+}
+
 
 document.querySelector("#preview").addEventListener("click", async function() {
 
     await Tone.start()
+
 
     if(!synth) {
         synth = new Tone.Synth().toDestination()
@@ -79,9 +103,15 @@ document.querySelector("#preview").addEventListener("click", async function() {
         return
     }
     const converted = await loadRiff(id)
-    riffPlayer(120, converted)
-    console.log("Preview played")
-    console.log("loaded" + id)
+
+    console.log("audio.js: " + window.totalPreviewTime)
+
+
+    riffPlayer(previewBpm, converted)
+})
+
+document.querySelector("#preview-stop").addEventListener("click", () => {
+    riffStop();
 })
 
 window.data = {

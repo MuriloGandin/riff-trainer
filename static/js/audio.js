@@ -104,17 +104,9 @@ document.querySelector("#preview").addEventListener("click", async function() {
     }
     const converted = await loadRiff(id)
 
-    console.log("audio.js: " + window.totalPreviewTime)
-
-
     riffPlayer(previewBpm, converted)
 })
 
 document.querySelector("#preview-stop").addEventListener("click", () => {
     riffStop();
 })
-
-window.data = {
-    notes: "abc",
-    time: 123
-}

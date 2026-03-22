@@ -15,19 +15,14 @@ window.addEventListener("load", () => {
         const rect = tabElement.getBoundingClientRect();
 
         const startX = rect.left - containerRect.left + 50;
-        console.log("startX:", startX);
         cursorPB.style.left = `${startX}px`;
 
         // Defines the allowed position for cursor
-        const tabWidth = tabElement.clientWidth;
+        const tabWidth = tabElement.clientWidth - 70;
         const endX = startX + tabWidth;
-
-        // PLACEHOLDER
-        const totalDuration = 4;
-        // window.totalPreviewTime
         
         function timeToX(currentTime) {
-            const progress = currentTime / totalDuration;
+            const progress = currentTime / window.totalPreviewTime;
             return startX + progress * tabWidth;
         }
 
@@ -36,7 +31,7 @@ window.addEventListener("load", () => {
             if (!isPlaying) return;
 
             const currentTime = Tone.Transport.seconds;
-            if (currentTime >= totalDuration) {
+            if (currentTime >= window.totalPreviewTime) {
                 stopCursor()
                 return
             }

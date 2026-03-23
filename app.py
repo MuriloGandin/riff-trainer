@@ -38,7 +38,6 @@ def tab():
     }
     selected = tabs[chosen]
 
-    print(selectedId)
     return render_template("tab.html", tab=selected, exercise=chosen, id=selectedId)
 
 @app.route("/riff/<int:riff_id>")

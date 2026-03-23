@@ -25,7 +25,19 @@ const convertNotes = (notes) => {
     }))
 }
 
-const previewBpm = 120;
+let previewBpm = 120; // Default value
+
+// Update BPM whenever user changes the input
+document.querySelector("#bpm")?.addEventListener("change", (e) => {
+    let value = parseInt(e.target.value) || 120;
+    if (value < 40) {
+        value = 40;
+    } else if (value > 300) {
+        value = 300;
+    }
+    previewBpm = value;
+    e.target.value = value; // Update the input to show the clamped value
+});
 
 function calculateTotalTime(notes) {
     let totalTime = 0;

@@ -17,14 +17,18 @@
         </div>
         <div class="playback-cursor"></div>
     </div>
-    <button id="preview" class="preview-option">Play</button>
-    <button id="preview-stop" class="preview-option">Stop</button>
-    <p id="tabId" data-id="{{ id }}"></p>
+    <div class="media-controls">
+        <input type="number" name="bpm" id="bpm" placeholder="BPM" value="120" min="40" max="300">
+        <button id="preview" class="preview-option">Play</button>
+        <button id="preview-stop" class="preview-option">Stop</button>
+        <p id="tabId" data-id="{{ id }}"></p>
+    </div>
     
     
     <script src="http://unpkg.com/tone"></script>
     <script src="https://unpkg.com/vextab/releases/div.prod.js"></script>
     <script src="{{ url_for('static', filename='js/audio.js') }}"></script>
     <script src="{{ url_for('static', filename='js/cursorSync.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tabDisplay.js') }}"></script>
 </body>
 </html>

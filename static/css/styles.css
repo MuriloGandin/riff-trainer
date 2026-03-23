@@ -50,16 +50,21 @@ h1 {
     justify-content: center;
 }
 
+.media-controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
 .playback-cursor {
     position: absolute;
     background: red;
     top: 0;
-    bottom: 0;
     left: 0;
     pointer-events: none;
     width: 5px;
+    height: 70px;
     border-radius: 30px;
-    margin-bottom: 7%;
-    margin-top: 6%;
     opacity: 30%;
 }

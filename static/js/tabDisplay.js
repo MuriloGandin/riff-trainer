@@ -7,7 +7,11 @@ async function loadTab(id) {
 }
 
 function renderTab(notes) {
-    // console.log("Notes data:", notes);
+    // Use VexTab to render the tab based on the JSON data
+    let tabContent = document.querySelector("#notation");
+    let barsPerLine = 3; // Default beats per line
+    tabContent.innerHTML = "test"
+    
 }
 
 document.addEventListener("DOMContentLoaded", () => { 

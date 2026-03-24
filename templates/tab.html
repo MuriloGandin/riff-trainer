@@ -11,7 +11,7 @@
     <h1>{{ exercise }} picking exercise</h1>
     <div class="tab-container">
         <div class="vextab-auto" id="notation"
-            width=680 scale=1.0 editor="false"
+            width=680 scale=1.0 editor="true"
             editor-width=680 editor-height=330>
             {{ tab }}
         </div>
@@ -20,9 +20,16 @@
     <div class="media-controls">
         <input type="number" name="bpm" id="bpm" placeholder="BPM" value="120" min="40" max="300">
         <button id="preview" class="preview-option">Play</button>
+        <!-- Interrupt player -->
         <button id="preview-stop" class="preview-option">Stop</button>
+        <!-- toggle loop -->
+        <label>
+        <input type="checkbox" id="loop">
+        Loop
+        </label>
         <p id="tabId" data-id="{{ id }}"></p>
     </div>
+    <button onclick="renderTab()">load</button>
     
     
     <script src="http://unpkg.com/tone"></script>

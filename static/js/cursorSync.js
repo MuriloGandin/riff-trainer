@@ -1,7 +1,5 @@
 // This file makes the tablature cursor work in sync with the audio
 
-// Initial cursor position
-
 window.addEventListener("load", () => {
     setTimeout(() => {
 
@@ -9,30 +7,43 @@ window.addEventListener("load", () => {
         let isPlaying = false;
 
         const container = document.querySelector(".tab-container");
-        const containerRect = container.getBoundingClientRect();
-
         const tabElement = document.querySelector("#notation");
-        const rect = tabElement.getBoundingClientRect();
 
-        const startX = rect.left - containerRect.left + 50;
-        cursorPB.style.left = `${startX}px`;
-        const startY = rect.top - containerRect.top + 70;
-        cursorPB.style.top = `${startY}px`;
+        // Initial cursor position and tab dimensions
+        let startX, startY, tabWidth, endX, staveMap;
 
-        // Defines the allowed position for cursor
-        const tabWidth = tabElement.clientWidth - 70;
-        const endX = startX + tabWidth;
-        
-      
-        // store Y positions of staves and the total of staves in an array of objects
-        const staves = document.querySelectorAll("#notation svg .vf-stave")
-        const staveMap = Array.from(staves).map((stave, index) => {
-            const staveRect = stave.getBoundingClientRect();
-            return {
-                index: index,
-                yPos: staveRect.top - containerRect.top,
-            }
-        })
+        function initCursor() {
+            // Ensures the cursor is positioned correctly relative to the tab, even on window resize
+            const containerRect = container.getBoundingClientRect();
+            const rect = tabElement.getBoundingClientRect();
+
+            startX = rect.left - containerRect.left + 50;
+            startY = rect.top - containerRect.top + 70;
+
+            // Defines the allowed position for cursor
+            tabWidth = tabElement.clientWidth - 70;
+            endX = startX + tabWidth;
+            
+          
+            // store Y positions of staves and the total of staves in an array of objects
+            const staves = document.querySelectorAll("#notation svg .vf-stave")
+            staveMap = Array.from(staves).map((stave, index) => {
+                const staveRect = stave.getBoundingClientRect();
+                return {
+                    index: index,
+                    yPos: staveRect.top - containerRect.top,
+                }
+            });
+
+            // Reset cursor position
+            cursorPB.style.left = `${startX}px`;
+            cursorPB.style.top = `${startY}px`;
+        }
+
+        initCursor(); // Initial calculation
+
+        // Recalculate on window resize
+        window.addEventListener('resize', initCursor);
 
         // Get x and y position of the cursor based on the current time of the audio
         function timeToXY(currentTime) {
@@ -43,6 +54,7 @@ window.addEventListener("load", () => {
             let currentLineIndex = Math.floor(currentTime / timePerLine);
             
             if (totalStaves > 1) {
+                // Calculate the gap between staves using the first two staves in the staveMap
                 staveGap = staveMap[1].yPos - staveMap[0].yPos;
             }
             
@@ -50,6 +62,7 @@ window.addEventListener("load", () => {
             if (currentLineIndex === 0) {
                 y = startY;
             } else {
+                // This formula calculates the resulting Y position based on the current line index and the gap between staves
                 y = startY + staveGap * currentLineIndex;
             }
 
@@ -71,7 +84,8 @@ window.addEventListener("load", () => {
             const {x, y} = timeToXY(currentTime)
             cursorPB.style.left = `${x}px`;
             cursorPB.style.top = `${y}px`;
-
+            
+            // Request the next frame to keep the animation going
             animationId = requestAnimationFrame(updateCursor);
         }
 
@@ -82,16 +96,12 @@ window.addEventListener("load", () => {
             requestAnimationFrame(updateCursor)
         }
 
-        // linebreak for the cursor
-        // Query staves
-        // Get Y positions and calculate time ranges
-
-
         document.querySelector("#preview").addEventListener("click", () => {
             updateCursor();
         })
 
         stopCursor = function() {
+            // Stop the animation and reset the cursor position
             cancelAnimationFrame(animationId);
             cursorPB.style.left = `${startX}px`;
             cursorPB.style.top = `${startY}px`;

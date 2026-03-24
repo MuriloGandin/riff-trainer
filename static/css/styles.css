@@ -1,11 +1,30 @@
+:root {
+  --bg: #0f172a;
+  --panel: #111827;
+  --border: #334155;
+  --text: #e2e8f0;
+  --subtext: #94a3b8;
+  --accent: #38bdf8;
+  --button: #2563eb;
+  --button-hover: #93c5fd;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  background: linear-gradient(145deg, #020617 0%, #0e1830 80%);
+}
+body.dark { background: linear-gradient(145deg,#0b1221,#111c33); }
+
+
 .dark h1, .dark h3 {
     text-align: center;
     color: #e4e4e4;
 }
 
-h1 {
-    text-align: center;
-}
+h1, h3 { margin: 0.35rem 0; color: var(--text); text-align: center; }
+
 
 .dark {
     background-color: #242121;
@@ -17,23 +36,30 @@ h1 {
 }
 
 .exercises-selector {
-    margin: 100px 20px;
-    display: flex;
-    text-align: center;
-    justify-content: space-evenly;
+  margin: 2rem auto 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  max-width: 850px;
 }
 
 .exercises-selector button {
-    padding: 9px;
-    border-radius: 8px;
-    background-color: #3b82f6;
-    color: #e4e4e4;
-    transition: all ease 0.5s;
+  border: 1px solid var(--border);
+  background: linear-gradient(135deg, var(--button), #1d4ed8);
+  color: #fff;
+  border-radius: 0.65rem;
+  padding: 0.75rem 1.2rem;
+  font-weight: 600;
+  min-width: 150px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
 }
 
 .exercises-selector button:hover {
-    cursor: pointer;
-    scale: 1.3;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.4);
+  background: linear-gradient(135deg, var(--button-hover), #60a5fa);
+  cursor: pointer;
 }
 
 .header-option {
@@ -46,15 +72,53 @@ h1 {
 
 .tab-container {
     position: relative;
-    display: flex;
-    justify-content: center;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  width: 95%;
+  max-width: 1100px;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: rgba(15, 23, 42, 0.88);
+  border: 1px solid var(--border);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45);
+}
+
+#notation svg .vf-stave,
+#notation svg line,
+#notation svg path,
+#notation svg .vf-clef,
+#notation svg .vf-stavebarline {
+  stroke: #94a3b8 !important;
+  fill: #cbd5e1 !important;
+  stroke-width: 1.1px !important;
+}
+
+#notation svg .vf-stave {
+  stroke: #60a5fa !important;
+}
+
+#notation svg .vf-stave_text, #notation svg .vf-table, #notation svg .vf-keysign{
+  fill: #e2e8f0 !important;
+}
+
+/* Tablature fret numbers - crisp and clean */
+#notation svg .vf-tabnote, #notation svg text {
+  fill: #ffffff !important;
+  stroke: none !important;
 }
 
 .media-controls {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 0.9rem;
+  margin: 1.25rem auto 1.5rem;
+}
+
+.media-controls label {
+  color: var(--subtext);
+  gap: 0.4rem;
+  align-content: center;
 }
 
 .playback-cursor {

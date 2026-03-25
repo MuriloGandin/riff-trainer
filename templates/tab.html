@@ -10,13 +10,12 @@
     <a href="/" class="header-option">Back</a>
     <h1>{{ exercise }} picking exercise</h1>
     <div class="tab-container">
-        <div class="vextab-auto" id="notation"
-            width=680 scale=1.0 editor="true"
-            editor-width=680 editor-height=330>
-            {{ tab }}
+        <div id="notation">
+            <!-- {{ tab }} -->
         </div>
         <div class="playback-cursor"></div>
     </div>
+
     <div class="media-controls">
         <input type="number" name="bpm" id="bpm" placeholder="BPM" value="120" min="40" max="300">
         <button id="preview" class="preview-option">Play</button>

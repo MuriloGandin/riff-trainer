@@ -84,6 +84,10 @@ h1, h3 { margin: 0.35rem 0; color: var(--text); text-align: center; }
   box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45);
 }
 
+#notation svg .vf-tabnote rect {
+    fill: transparent !important;
+}
+
 #notation svg .vf-stave,
 #notation svg line,
 #notation svg path,

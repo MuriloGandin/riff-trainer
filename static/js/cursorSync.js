@@ -18,7 +18,7 @@ window.addEventListener("load", () => {
             const rect = tabElement.getBoundingClientRect();
 
             startX = rect.left - containerRect.left + 50;
-            startY = rect.top - containerRect.top + 70;
+            startY = rect.top - containerRect.top + 77;
 
             // Defines the allowed position for cursor
             tabWidth = tabElement.clientWidth - 70;

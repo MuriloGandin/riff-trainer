@@ -11,7 +11,6 @@
     <h1>{{ exercise }} picking exercise</h1>
     <div class="tab-container">
         <div id="notation">
-            <!-- {{ tab }} -->
         </div>
         <div class="playback-cursor"></div>
     </div>
@@ -28,9 +27,8 @@
         </label>
         <p id="tabId" data-id="{{ id }}"></p>
     </div>
-    <button onclick="renderTab()">load</button>
-    
-    
+    <input type="hidden" id="timeSignature" value="{{ time_signature }}">
+
     <script src="http://unpkg.com/tone"></script>
     <script src="https://unpkg.com/vextab/releases/div.prod.js"></script>
     <script src="{{ url_for('static', filename='js/audio.js') }}"></script>

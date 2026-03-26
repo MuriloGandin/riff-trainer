@@ -8,12 +8,38 @@ async function loadTab(id) {
 
 function renderTab(notes) {
     // Use VexTab to render the tab based on the JSON data
-    let tabContent = document.querySelector("#notation");
     let barsPerLine = 3; // Default beats per line
+    let timeSignature = document.querySelector("#timeSignature").value; // Default time signature
+    console.log(timeSignature)
     
+    const tabOptions1 = `options space=20 tab-stems=true \n`
+    const tabOptions2 = `\n options space=30`
+
+    console.log(notes)
+    let noteSection = '';
+    let bar;
+    let totalCompasses = 1;
+    let lineBreak = ''
+    // Convert each line of the tab to the VexTab format, adding bar lines and line breaks as needed
+    notes.forEach(note => {
+        let tabNoteRhythm = parseInt(note.duration)
+        if (note.position % 4 === 0 && note.position !== 0) {
+            bar = `|`
+            totalCompasses += 1;
+        } else {
+            bar = ``
+        }
+        if (totalCompasses > barsPerLine) {
+            bar = `\n tabstave time=${timeSignature}/4 \n notes `
+            totalCompasses = 1;
+        }
+        let tabNote = `${note.fret}/${note.string}`
+        noteSection += ` ${bar} :${tabNoteRhythm} ${tabNote}`
+    });
+    console.log(noteSection)
 
     const data = `
-options space=20 tab-stems=true \n tabstave time=4/4 \n notes =|: :8$.top.$ 5/6 $∏$ 6/6$V$ 7/6$∏$ 8/5$V$ 5/6$∏$ 6/6$V$ 7/5$∏$ 8/6$V$ | 5/6 $∏$ 6/5$V$ 7/6$∏$ 8/6$V$ 5/5$∏$ 6/6$V$ 7/6$∏$ 8/6$V$ =:| \n options space=30
+    ${tabOptions1} tabstave time=${timeSignature}/4 \n notes =|: ${noteSection} =:| ${tabOptions2}
     `
 
     const VF = vextab.Vex.Flow

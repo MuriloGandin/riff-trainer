@@ -43,4 +43,18 @@ This file renders and updates the playback cursor in sync with the selected BPM.
 The project's database is where the tablatures are stored, as well as important information such as time signatures, naming and notes rhythm and pitch. It is useful for any information that needs to be persistent.
 
 ### noteinsert.py
-This is a helper script, it is used to make it easier to insert new tablatures into the database.
+This is a helper script, it is used to make it easier to insert new tablatures into the database. It supports notation for articulations, muting, and picking styles.
+
+Usage:
+- To insert a new riff: `python scripts/noteinsert.py --json_file path/to/riff.json`
+- To update notation for existing notes: `python scripts/noteinsert.py --json_file path/to/riff.json --update`
+
+The JSON file should have the structure:
+{
+    "name": "riff_name",
+    "time_signature": "4/4",
+    "notes": [
+        {"string": 6, "fret": 5, "position": 0.0, "duration": "8n", "notation": "downstroke"},
+        ...
+    ]
+}

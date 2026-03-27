@@ -19,7 +19,6 @@ function renderTab(notes) {
     let noteSection = '';
     let bar;
     let totalCompasses = 1;
-    let lineBreak = ''
     // Convert each line of the tab to the VexTab format, adding bar lines and line breaks as needed
     notes.forEach(note => {
         let tabNoteRhythm = parseInt(note.duration)

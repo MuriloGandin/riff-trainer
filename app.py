@@ -51,7 +51,7 @@ def get_riff(riff_id):
     # Get all of the selected riff's notes
     notes = cursor.execute(
     """
-    SELECT string, fret, duration, position
+    SELECT string, fret, duration, position, notation
     FROM notes
     WHERE riff_id = ?
     ORDER BY position
@@ -67,7 +67,8 @@ def get_riff(riff_id):
             "string": note[0],
             "fret": note[1],
             "duration": note[2],
-            "position": note[3]
+            "position": note[3],
+            "notation": note[4]
         })
 
     return jsonify(notes_list)

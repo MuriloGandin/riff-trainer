@@ -1,86 +1,73 @@
 # The purpose of this file is to have an easier way of inserting new tablatures into the database
 import sqlite3
+import argparse
+import json
 
-conn = sqlite3.connect("riffs.db")
-cursor = conn.cursor()
+def insert_riff_and_notes(riff_data):
+    conn = sqlite3.connect("riffs.db")
+    cursor = conn.cursor()
 
-riff_name = "spider" # Change this to the name of the riff you want to insert
-tempo = "100"
-compass = "4/4"
-
-cursor.execute(
-    """
-    INSERT INTO riffs (name, tempo, time_signature)
-    VALUES (?, ?, ?)
-    """, (riff_name, tempo, compass)
-)
-
-riff_id = cursor.lastrowid
-
-# Format: (string, fret)
-riff_notes = [
-    (6, 5),
-    (6, 7),
-    (6, 6),
-    (6, 8),
-    (5, 5),
-    (5, 6),
-    (5, 7),
-    (5, 8),
-    (4, 5),
-    (4, 7),
-    (4, 6),
-    (4, 8),
-    (3, 5),
-    (3, 6),
-    (3, 7),
-    (3, 8),
-    (2, 5),
-    (2, 7),
-    (2, 6),
-    (2, 8),
-    (1, 5),
-    (1, 6),
-    (1, 7),
-    (1, 8),
-    (1, 5),
-    (1, 7),
-    (1, 6),
-    (1, 8),
-    (2, 5),
-    (2, 6),
-    (2, 7),
-    (2, 8),
-    (3, 5),
-    (3, 7),
-    (3, 6),
-    (3, 8),
-    (4, 5),
-    (4, 6),
-    (4, 7),
-    (4, 8),
-    (5, 5),
-    (5, 7),
-    (5, 6),
-    (5, 8),
-    (6, 5),
-    (6, 6),
-    (6, 7),
-    (6, 8)
-]
-
-beat_position = 0
-step = 0.5
-
-for string, fret in riff_notes:
-
+    # Insert riff
     cursor.execute(
-    """
-    INSERT INTO notes (riff_id, string, fret, position, duration)
-    VALUES (?, ?, ?, ?, ?)
-    """, (riff_id, string, fret, beat_position, "8n")
+        """
+        INSERT INTO riffs (name, time_signature)
+        VALUES (?, ?)
+        """, (riff_data['name'], riff_data['time_signature'])
     )
-    beat_position += step
 
-conn.commit()
-conn.close()
+    riff_id = cursor.lastrowid
+
+    # Insert notes
+    for note in riff_data['notes']:
+        cursor.execute(
+            """
+            INSERT INTO notes (riff_id, string, fret, position, duration, notation)
+            VALUES (?, ?, ?, ?, ?, ?)
+            """, (riff_id, note['string'], note['fret'], note['position'], note['duration'], note.get('notation', ''))
+        )
+
+    conn.commit()
+    conn.close()
+    print(f"Inserted riff '{riff_data['name']}' with {len(riff_data['notes'])} notes.")
+
+def update_notation_for_existing_riff(riff_name, notes_with_notation):
+    conn = sqlite3.connect("riffs.db")
+    cursor = conn.cursor()
+
+    # Get riff_id
+    cursor.execute("SELECT id FROM riffs WHERE name = ?", (riff_name,))
+    result = cursor.fetchone()
+    if not result:
+        print(f"Riff '{riff_name}' not found.")
+        conn.close()
+        return
+    riff_id = result[0]
+
+    # Update notes
+    for note in notes_with_notation:
+        cursor.execute(
+            """
+            UPDATE notes
+            SET notation = ?
+            WHERE riff_id = ? AND string = ? AND fret = ? AND position = ?
+            """, (note['notation'], riff_id, note['string'], note['fret'], note['position'])
+        )
+
+    conn.commit()
+    conn.close()
+    print(f"Updated notation for {len(notes_with_notation)} notes in riff '{riff_name}'.")
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Insert or update riffs and notes in the database.")
+    parser.add_argument('--json_file', required=True, help='Path to JSON file with riff data')
+    parser.add_argument('--update', action='store_true', help='Update notation for existing riff instead of inserting new')
+
+    args = parser.parse_args()
+
+    with open(args.json_file, 'r') as f:
+        riff_data = json.load(f)
+
+    if args.update:
+        update_notation_for_existing_riff(riff_data['name'], riff_data['notes'])
+    else:
+        insert_riff_and_notes(riff_data)

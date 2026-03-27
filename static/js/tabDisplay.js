@@ -13,7 +13,8 @@ function renderTab(notes) {
     console.log(timeSignature)
     
     const tabOptions1 = `options space=20 tab-stems=true \n`
-    const tabOptions2 = `\n options space=30`
+    const tabOptions2 = `\n options space=50`
+    const staveGap = `options space=30 \n`
 
     console.log(notes)
     let noteSection = '';
@@ -21,7 +22,16 @@ function renderTab(notes) {
     let totalCompasses = 1;
     // Convert each line of the tab to the VexTab format, adding bar lines and line breaks as needed
     notes.forEach(note => {
-        let tabNoteRhythm = parseInt(note.duration)
+        let notation = note.notation;
+        if (notation === null) {
+            notation = ""
+        }
+        else if (notation === "v") {
+            notation = "d"
+        } else if (notation === "^") {
+            notation = "u"
+        } 
+        let tabNoteRhythm = parseInt(note.duration);
         if (note.position % 4 === 0 && note.position !== 0) {
             bar = `|`
             totalCompasses += 1;
@@ -29,10 +39,10 @@ function renderTab(notes) {
             bar = ``
         }
         if (totalCompasses > barsPerLine) {
-            bar = `\n tabstave time=${timeSignature}/4 \n notes `
+            bar = `\n ${staveGap} tabstave time=${timeSignature}/4 \n notes `
             totalCompasses = 1;
         }
-        let tabNote = `${note.fret}/${note.string}`
+        let tabNote = `${note.fret}${notation}/${note.string}`
         noteSection += ` ${bar} :${tabNoteRhythm} ${tabNote}`
     });
     console.log(noteSection)

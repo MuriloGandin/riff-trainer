@@ -1,0 +1,22 @@
+{
+    "name": "alternate",
+    "time_signature": "4/4",
+    "notes": [
+        {"string": 6, "fret": 5, "position": 0.0, "duration": "8n", "notation": "v"},
+        {"string": 6, "fret": 6, "position": 0.5, "duration": "8n", "notation": "^"},
+        {"string": 6, "fret": 7, "position": 1.0, "duration": "8n", "notation": "v"},
+        {"string": 5, "fret": 8, "position": 1.5, "duration": "8n", "notation": "^"},
+        {"string": 6, "fret": 5, "position": 2.0, "duration": "8n", "notation": "v"},
+        {"string": 6, "fret": 6, "position": 2.5, "duration": "8n", "notation": "^"},
+        {"string": 5, "fret": 7, "position": 3.0, "duration": "8n", "notation": "v"},
+        {"string": 6, "fret": 8, "position": 3.5, "duration": "8n", "notation": "^"},
+        {"string": 6, "fret": 5, "position": 4.0, "duration": "8n", "notation": "v"},
+        {"string": 5, "fret": 6, "position": 4.5, "duration": "8n", "notation": "^"},
+        {"string": 6, "fret": 7, "position": 5.0, "duration": "8n", "notation": "v"},
+        {"string": 6, "fret": 8, "position": 5.5, "duration": "8n", "notation": "^"},
+        {"string": 5, "fret": 5, "position": 6.0, "duration": "8n", "notation": "v"},
+        {"string": 6, "fret": 6, "position": 6.5, "duration": "8n", "notation": "^"},
+        {"string": 6, "fret": 7, "position": 7.0, "duration": "8n", "notation": "v"},
+        {"string": 6, "fret": 8, "position": 7.5, "duration": "8n", "notation": "^"}
+    ]
+}

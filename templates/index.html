@@ -10,18 +10,15 @@
     <h1>Riff Trainer</h1>
     <h3>Chose your <b>exercise</b></h3>
     <div class="exercises-selector">
-        <form action="/tab" method="post">
-            <input name="tab" type="hidden" value="alternate">
-            <button type="submit">Alternate picking</button>
-        </form>
-        <form action="/tab" method="post">
-            <input name="tab" type="hidden" value="sweep">
-            <button type="submit">Sweeping</button>
-        </form>
-        <form action="/tab" method="post">
-            <input name="tab" type="hidden" value="spider">
-            <button type="submit">Spider</button>
-        </form>
+        {% for tab in tabNames %}
+
+            <form action="/tab" method="post">
+                <input name="tab" type="hidden" value="{{ tab[0] }}">
+                <button type="submit">{{ tab[0] }}</button>
+            </form>
+
+        {% endfor %}
+
         <form action="/tab" method="post">
             <input name="tab" type="hidden" value="Rock1">
             <button type="submit">Rock 1</button>

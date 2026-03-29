@@ -8,7 +8,16 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    return render_template("index.html")
+
+    conn = sqlite3.connect("riffs.db")
+    cursor = conn.cursor()
+
+    tabNames = cursor.execute(
+        """
+        SELECT name
+        FROM riffs""").fetchall()
+
+    return render_template("index.html", tabNames=tabNames)
 
 @app.route("/tab", methods=["POST"])
 def tab():

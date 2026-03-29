@@ -10,13 +10,11 @@ function renderTab(notes) {
     // Use VexTab to render the tab based on the JSON data
     let barsPerLine = 3; // Default beats per line
     let timeSignature = document.querySelector("#timeSignature").value; // Default time signature
-    console.log(timeSignature)
     
     const tabOptions1 = `options space=20 tab-stems=true \n`
     const tabOptions2 = `\n options space=50`
     const staveGap = `options space=30 \n`
 
-    console.log(notes)
     let noteSection = '';
     let bar;
     let totalCompasses = 1;
@@ -45,7 +43,6 @@ function renderTab(notes) {
         let tabNote = `${note.fret}${notation}/${note.string}`
         noteSection += ` ${bar} :${tabNoteRhythm} ${tabNote}`
     });
-    console.log(noteSection)
 
     const data = `
     ${tabOptions1} tabstave time=${timeSignature}/4 \n notes =|: ${noteSection} =:| ${tabOptions2}

@@ -78,7 +78,26 @@ function riffPlayer(bpm, convertedNotes) {
     Tone.Transport.bpm.value = bpm;
 
     const secondsPerBeat = 60 / bpm;
+    const totalDuration = window.totalPreviewTime; // Assuming this is set in loadRiff
 
+    if (metronomeEnabled) {
+        // Clock sound for the metronome
+        const metronome = new Tone.Synth({
+            oscillator: { type: "sine" },
+            envelope: { attack: 0.001, decay: 0.05, sustain: 0, release: 0.1 }
+        }).toDestination();
+        
+        // Schedule repeating metronome clicks
+        metronomeId = Tone.Transport.scheduleRepeat((time) => {
+            metronome.triggerAttackRelease("C6", "32n", time);
+        }, secondsPerBeat);
+        
+        // Schedule the metronome to stop after the riff ends
+        Tone.Transport.scheduleOnce(() => {
+            Tone.Transport.clear(metronomeId);
+            metronomeId = null;
+        }, totalDuration);
+    }
 
     convertedNotes.forEach(note => {
         // Convert music notation rhythm to seconds
@@ -98,7 +117,21 @@ function riffStop () {
     Tone.Transport.stop();
     Tone.Transport.cancel();
     Tone.Transport.position = 0;
+    // Clear metronome if active
+    if (metronomeId) {
+        Tone.Transport.clear(metronomeId);
+        metronomeId = null;
+    }
 }
+
+let metronomeEnabled = false;
+document.querySelector("#metronome")?.addEventListener("change", function() {
+    if (this.checked) {
+        metronomeEnabled = true;
+    } else {
+        metronomeEnabled = false;
+    }
+})
 
 
 document.querySelector("#preview").addEventListener("click", async function() {

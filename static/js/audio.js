@@ -41,12 +41,26 @@ document.querySelector("#bpm")?.addEventListener("change", (e) => {
 
 function calculateTotalTime(notes) {
     let totalTime = 0;
-    notes.forEach(note => {
+    // Use a Set to track seen positions and avoid double-counting chord notes
+    let seemPositions = new Set();
+
+    for(let i = 0; i < notes.length; i++) {
+        
+        let note = notes[i];
+
+        if (seemPositions.has(note.time)) {
+            // This position has already been counted (chord note), so skip it
+            continue;
+        }
+
+        seemPositions.add(note.time);
+
         const noteValue = parseInt(note.duration);
         const beats = 4 / noteValue;
         const durationSeconds = beats * (60 / previewBpm);
         totalTime += durationSeconds
-    });
+    };
+
     return totalTime
 }
 
@@ -62,6 +76,7 @@ async function loadRiff(id) {
     const converted = convertNotes(notes)
 
     window.totalPreviewTime = calculateTotalTime(converted)
+    console.log("Total preview time (seconds):", window.totalPreviewTime)
     
     return converted
 }
@@ -79,6 +94,11 @@ function riffPlayer(bpm, convertedNotes) {
 
     const secondsPerBeat = 60 / bpm;
     const totalDuration = window.totalPreviewTime; // Assuming this is set in loadRiff
+
+    Tone.Transport.loop = window.loopEnabled;
+    Tone.Transport.loopStart = 0;
+    Tone.Transport.loopEnd = totalDuration;
+
 
     if (metronomeEnabled) {
         // Clock sound for the metronome
@@ -133,6 +153,15 @@ document.querySelector("#metronome")?.addEventListener("change", function() {
     }
 })
 
+window.loopEnabled = false;
+document.querySelector("#loop")?.addEventListener("change", function() {
+    if (this.checked) {
+        window.loopEnabled = true;
+    } else {
+        window.loopEnabled = false;
+    }
+});
+
 
 document.querySelector("#preview").addEventListener("click", async function() {
 
@@ -140,7 +169,7 @@ document.querySelector("#preview").addEventListener("click", async function() {
 
 
     if(!synth) {
-        synth = new Tone.Synth().toDestination()
+        synth = new Tone.PolySynth().toDestination()
     }
     const id = document.querySelector("#tabId").dataset.id
     if (id == "inexistent") {

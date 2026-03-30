@@ -75,13 +75,19 @@ window.addEventListener("load", () => {
         function updateCursor() {
             if (!isPlaying) return;
 
-            const currentTime = Tone.Transport.seconds;
-            if (currentTime >= window.totalPreviewTime) {
+            let currentTime = Tone.Transport.seconds;
+
+            if (window.loopEnabled) {
+                currentTime = currentTime % window.totalPreviewTime;
+            } else {
+                if (currentTime >= window.totalPreviewTime) {
                 stopCursor()
                 return
+                }
             }
 
             const {x, y} = timeToXY(currentTime)
+
             cursorPB.style.left = `${x}px`;
             cursorPB.style.top = `${y}px`;
             

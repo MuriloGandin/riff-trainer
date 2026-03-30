@@ -8,7 +8,7 @@
 </head>
 <body class="dark">
     <h1>Riff Trainer</h1>
-    <h3>Chose your <b>exercise</b></h3>
+    <h3>Chose your <b>tablature</b></h3>
     <div class="exercises-selector">
         {% for tab in tabNames %}
 
@@ -18,11 +18,6 @@
             </form>
 
         {% endfor %}
-
-        <form action="/tab" method="post">
-            <input name="tab" type="hidden" value="Rock1">
-            <button type="submit">Rock 1</button>
-        </form>
     </div>
     
     <script src="http://unpkg.com/tone"></script>

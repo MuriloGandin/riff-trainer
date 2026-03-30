@@ -1,0 +1,32 @@
+{
+    "name": "rock1",
+    "time_signature": "4/4",
+    "notes": [
+        {"string": 6, "fret": 0, "position": 0.0, "duration": "4n"},
+        {"string": 5, "fret": 2, "position": 0.0, "duration": "4n"},
+        {"string": 4, "fret": 2, "position": 0.0, "duration": "4n"},
+        {"string": 6, "fret": 0, "position": 1.0, "duration": "16n"},
+        {"string": 6, "fret": 0, "position": 1.25, "duration": "16n"},
+        {"string": 6, "fret": 0, "position": 1.5, "duration": "16n"},
+        {"string": 6, "fret": 0, "position": 1.75, "duration": "16n"},
+        {"string": 6, "fret": 1, "position": 2.0, "duration": "4n"},
+        {"string": 5, "fret": 3, "position": 2.0, "duration": "4n"},
+        {"string": 4, "fret": 3, "position": 2.0, "duration": "4n"},
+        {"string": 6, "fret": 1, "position": 3.0, "duration": "16n"},
+        {"string": 6, "fret": 1, "position": 3.25, "duration": "16n"},
+        {"string": 6, "fret": 1, "position": 3.5, "duration": "16n"},
+        {"string": 6, "fret": 1, "position": 3.75, "duration": "16n"},
+        {"string": 6, "fret": 0, "position": 4.0, "duration": "4n"},
+        {"string": 5, "fret": 2, "position": 4.0, "duration": "4n"},
+        {"string": 4, "fret": 2, "position": 4.0, "duration": "4n"},
+        {"string": 6, "fret": 0, "position": 5.0, "duration": "16n"},
+        {"string": 6, "fret": 0, "position": 5.25, "duration": "16n"},
+        {"string": 6, "fret": 0, "position": 5.5, "duration": "8n"},
+        {"string": 6, "fret": 0, "position": 6.0, "duration": "16n"},
+        {"string": 6, "fret": 0, "position": 6.25, "duration": "16n"},
+        {"string": 6, "fret": 0, "position": 6.5, "duration": "8n"},
+        {"string": 6, "fret": 0, "position": 7.0, "duration": "16n"},
+        {"string": 6, "fret": 0, "position": 7.25, "duration": "16n"},
+        {"string": 6, "fret": 0, "position": 7.5, "duration": "8n"}
+    ]
+}

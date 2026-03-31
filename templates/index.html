@@ -7,22 +7,40 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body class="dark">
-    <h1>Riff Trainer</h1>
-    <h3>Chose your <b>tablature</b></h3>
-    <div class="exercises-selector">
-        {% for tab in tabNames %}
+    <header class="main-header">
+        <div class="logo">🎸 Riff Trainer</div>
+        <div class="subtitle">Train your precision. Master your riffs.</div>
 
-            <form action="/tab" method="post">
-                <input name="tab" type="hidden" value="{{ tab[0] }}">
-                <button type="submit">{{ tab[0] }}</button>
-            </form>
+        <nav>
+            <a href="/">Home</a>
+            <a href="#">Library</a>
+        </nav>
+    </header>
 
-        {% endfor %}
-    </div>
+    <section class="keep-playing">
+        <h2>Keep Playing</h2>
+        <p>Continue practicing your riffs or explore new ones from the library below!</p>
+    </section>
+
+    <h3>Riff Library</h3>
+    <section class="riffs-library">
+        <input type="text" id="searchInput" placeholder="Search riffs..."> 
+        <div class="exercises-selector">
+            {% for tab in tabNames %}
+
+                <form action="/tab" method="post" class="riff-item">
+                    <input name="tab" type="hidden" value="{{ tab[0] }}">
+                    <button type="submit">{{ tab[0] }}</button>
+                </form>
+
+            {% endfor %}
+        </div>
+    </section>
     
     <script src="http://unpkg.com/tone"></script>
     <script src="https://unpkg.com/vextab/releases/div.prod.js"></script>
     <script src="{{ url_for('static', filename='js/audio.js') }}"></script>
     <script src="{{ url_for('static', filename='js/tabDisplay.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/visuals.js') }}"></script>
 </body>
 </html>

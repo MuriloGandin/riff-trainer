@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, session
 import sqlite3
 
 conn = sqlite3.connect("riffs.db")
 cursor = conn.cursor()
 
 app = Flask(__name__)
+app.secret_key = "oksdokSVMoDgeior12fsa232"
 
 @app.route("/", methods=["GET", "POST"])
 def index():

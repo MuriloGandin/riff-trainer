@@ -17,7 +17,6 @@ body {
 }
 body.dark { background: linear-gradient(145deg,#0b1221,#111c33); }
 
-
 .dark h1, .dark h3 {
     text-align: center;
     color: #e4e4e4;
@@ -69,6 +68,20 @@ section {
     position: relative;
 }
 
+.keep-playing {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem auto 1.5rem;
+    max-width: 600px;
+    background: rgba(15, 23, 42, 0.88);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+
 .exercises-selector {
   margin: 2rem auto 1.5rem;
   display: flex;
@@ -78,10 +91,12 @@ section {
   max-width: 850px;
 }
 
-.exercises-selector button {
+.riff-button {
   border: 1px solid var(--border);
   background: linear-gradient(135deg, var(--button), #1d4ed8);
   color: #fff;
+  display: flex;
+  flex-direction: column;
   border-radius: 0.65rem;
   padding: 0.75rem 1.2rem;
   font-weight: 600;
@@ -89,11 +104,33 @@ section {
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
 }
 
-.exercises-selector button:hover {
+.riff-button:hover {
   transform: translateY(-2px) scale(1.03);
   box-shadow: 0 10px 20px rgba(15, 23, 42, 0.4);
   background: linear-gradient(135deg, var(--button-hover), #60a5fa);
   cursor: pointer;
+}
+
+.difficulty {
+    font-size: 0.75rem;
+    color: var(--subtext);
+    margin-top: 0.25rem;
+}
+
+.easy {
+    color: #22c55e;
+}
+
+.medium {
+    color: #eab308;
+}
+
+.hard {
+    color: #ef4444;
+}
+
+.extreme {
+    color: #8b5cf6;
 }
 
 .header-option {

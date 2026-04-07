@@ -28,7 +28,7 @@ function formatRiffName(name) {
     .replace(/_/g, ' ');
 }
 
-const riffButtons = document.querySelectorAll(".riff-item button");
+const riffButtons = document.querySelectorAll(".riff-item button .riff-name");
 
 riffButtons.forEach(button => {
     const originalText = button.innerText;

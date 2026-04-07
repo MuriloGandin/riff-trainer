@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Riff Trainer - Tab</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body>
     <a href="/" class="header-option">Back</a>
-    <h1>{{ exercise }}</h1>
+    <h1 class="riff-item">{{ exercise }}</h1>
     <div class="tab-container">
         <div id="notation">
         </div>

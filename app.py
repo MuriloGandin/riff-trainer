@@ -10,20 +10,33 @@ app.secret_key = "oksdokSVMoDgeior12fsa232"
 @app.route("/", methods=["GET", "POST"])
 def index():
 
+    if "recent" not in session:
+        session["recent"] = []
+
     conn = sqlite3.connect("riffs.db")
     cursor = conn.cursor()
 
-    tabNames = cursor.execute(
+    tabInfo = cursor.execute(
         """
-        SELECT name
-        FROM riffs""").fetchall()
+        SELECT name, dificulty
+        FROM riffs
+        """).fetchall()
 
-    return render_template("index.html", tabNames=tabNames)
+    return render_template("index.html", tabInfo=tabInfo, recent=session.get("recent", []))
 
 @app.route("/tab", methods=["POST"])
 def tab():
 
+    if "recent" not in session:
+        session["recent"] = []
+
     chosen = request.form.get("tab")
+    
+    if chosen in session["recent"]:
+            session["recent"].remove(chosen)
+
+    session["recent"].insert(0, chosen)
+    session["recent"] = session["recent"][:5]
 
     conn = sqlite3.connect("riffs.db")
     cursor = conn.cursor()
@@ -48,7 +61,6 @@ def tab():
         selectedTimeSignature = "inexistent"
 
     cursor.close()
-
 
     return render_template("tab.html", exercise=chosen, id=selectedId, time_signature=selectedTimeSignature)
 

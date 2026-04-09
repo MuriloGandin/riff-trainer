@@ -1,19 +1,22 @@
-const search = document.querySelector("#searchInput");
-const riffList = document.querySelectorAll(".riff-item");
+document.addEventListener("DOMContentLoaded", () => {
+    const search = document.querySelector("#searchInput");
+    const riffList = document.querySelectorAll(".riff-item");
 
-search.addEventListener("input", function() {
-    const value = this.value.toLowerCase();
+    search.addEventListener("input", function() {
+        const value = this.value.toLowerCase();
 
-    riffList.forEach(riff => {
-        const text = riff.textContent.toLowerCase();
+        riffList.forEach(riff => {
+            const text = riff.textContent.toLowerCase();
 
-        if (text.includes(value)) {
-            riff.style.display = "";
-        } else {
-            riff.style.display = "none";
-        }
+            if (text.includes(value)) {
+                riff.style.display = "";
+            } else {
+                riff.style.display = "none";
+            }
+        });
     });
-});
+})
+
 
 // Format riff names for display
 function formatRiffName(name) {
@@ -36,3 +39,25 @@ riffButtons.forEach(button => {
 
     button.innerText = formattedText;
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const tabTitle = document.querySelector(".tab-title");
+    if (tabTitle) {
+        const originalText = tabTitle.textContent;
+
+        tabTitle.textContent = formatRiffName(originalText);
+    }
+
+    favoriteIcon = document.querySelector(".star-icon")
+    favorited = false
+    favoriteIcon.addEventListener("click", () => {
+        if (!favorited) {
+            console.log("Favorited")
+            favorited = true;
+        } else {
+            console.log("Unfavorited")
+            favorited = false;
+        }
+    })
+})
+

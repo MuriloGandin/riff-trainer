@@ -10,7 +10,10 @@
 <body>
     <a href="/" class="header-option">Back</a>
     <div class="top-container">
-        <img src="{{ url_for('static', filename='img/star-empty.png') }}" alt="Favorite" class="star-icon">
+        <img src="{{ url_for('static', filename='img/star-empty.png') }}" alt="Favorite" class="star-icon"
+        data-empty="{{ url_for('static', filename='img/star-empty.png') }}" 
+        data-filled="{{ url_for('static', filename='img/star-filled.png') }}"
+        data-id="{{ id }}">
         <h1 class="tab-title">{{ exercise }}</h1>
     </div>
     

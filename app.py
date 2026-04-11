@@ -13,6 +13,9 @@ def index():
     if "recent" not in session:
         session["recent"] = []
 
+    if "favorites" not in session:
+        session["favorites"] = []
+
     conn = sqlite3.connect("riffs.db")
     cursor = conn.cursor()
 
@@ -94,6 +97,26 @@ def get_riff(riff_id):
         })
 
     return jsonify(notes_list)
+
+@app.route("/toggle-favorite", methods=["POST"])
+def toggle_favorite():
+    riff_id = str(request.json.get("riff_id"))
+
+    if "favorites" not in session:
+        session["favorites"] = []
+
+    if riff_id in session["favorites"]:
+        session["favorites"].remove(riff_id)
+        favorited = False
+    else:
+        session["favorites"].append(riff_id)
+        favorited = True
+
+    session.modified = True
+    print(session["favorites"])
+
+    return(jsonify({"favorited": favorited}))
+
 
 # Run app in debug mode
 if __name__ == "__main__":

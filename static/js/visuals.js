@@ -48,15 +48,25 @@ document.addEventListener("DOMContentLoaded", () => {
         tabTitle.textContent = formatRiffName(originalText);
     }
 
-    favoriteIcon = document.querySelector(".star-icon")
-    favorited = false
-    favoriteIcon.addEventListener("click", () => {
-        if (!favorited) {
-            console.log("Favorited")
-            favorited = true;
+    const favoriteIcon = document.querySelector(".star-icon")
+    if (!favoriteIcon) return;
+    favoriteIcon.addEventListener("click", async () => {
+        const riffId = favoriteIcon.dataset.id
+
+        const response = await fetch("/toggle-favorite", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ riff_id: riffId })
+    });
+    
+        const data = await response.json()
+
+        if (data.favorited) {
+            favoriteIcon.src = favoriteIcon.dataset.filled
         } else {
-            console.log("Unfavorited")
-            favorited = false;
+            favoriteIcon.src = favoriteIcon.dataset.empty
         }
     })
 })

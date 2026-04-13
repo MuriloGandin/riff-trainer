@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, session
+from flask import Flask, redirect, render_template, request, jsonify, session
 import sqlite3
 
 conn = sqlite3.connect("riffs.db")
@@ -25,22 +25,17 @@ def index():
         FROM riffs
         """).fetchall()
 
-    return render_template("index.html", tabInfo=tabInfo, recent=session.get("recent", []))
+    favorites = session.get("favorites", [])
+
+    recent = session.get("recent", [])
+
+    return render_template("index.html", tabInfo=tabInfo, recent=recent, favorites=favorites)
 
 @app.route("/tab", methods=["POST"])
 def tab():
 
-    if "recent" not in session:
-        session["recent"] = []
-
     chosen = request.form.get("tab")
     
-    if chosen in session["recent"]:
-            session["recent"].remove(chosen)
-
-    session["recent"].insert(0, chosen)
-    session["recent"] = session["recent"][:5]
-
     conn = sqlite3.connect("riffs.db")
     cursor = conn.cursor()
 
@@ -62,10 +57,26 @@ def tab():
     except TypeError:
         selectedId = "inexistent"
         selectedTimeSignature = "inexistent"
+        return redirect("/")
+    
+    if "recent" not in session:
+        session["recent"] = []
+
+    if chosen in session["recent"]:
+        session["recent"].remove(chosen)
+
+    session["recent"].insert(0, chosen)
+    session["recent"] = session["recent"][:5]
+
+
+    if selectedId in session["favorites"]:
+        favorited = True
+    else:
+        favorited = False
 
     cursor.close()
 
-    return render_template("tab.html", exercise=chosen, id=selectedId, time_signature=selectedTimeSignature)
+    return render_template("tab.html", exercise=chosen, id=selectedId, time_signature=selectedTimeSignature, favorited=favorited)
 
 @app.route("/riff/<int:riff_id>")
 def get_riff(riff_id):
@@ -105,15 +116,14 @@ def toggle_favorite():
     if "favorites" not in session:
         session["favorites"] = []
 
-    if riff_id in session["favorites"]:
-        session["favorites"].remove(riff_id)
+    if int(riff_id) in session["favorites"]:
+        session["favorites"].remove(int(riff_id))
         favorited = False
     else:
-        session["favorites"].append(riff_id)
+        session["favorites"].append(int(riff_id))
         favorited = True
 
     session.modified = True
-    print(session["favorites"])
 
     return(jsonify({"favorited": favorited}))
 

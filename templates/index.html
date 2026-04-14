@@ -1,22 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Riff Trainer</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
-</head>
-<body class="dark">
-    <header class="main-header">
-        <div class="logo">🎸 Riff Trainer</div>
-        <div class="subtitle">Train your precision. Master your riffs.</div>
+{% extends "base.html" %}
 
-        <nav>
-            <a href="/">Home</a>
-            <a href="#">Library</a>
-        </nav>
-    </header>
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
 
     <section class="keep-playing">
         <h2>Keep Playing</h2>
@@ -66,11 +54,5 @@
             {% endfor %}
         </div>
     </section>
-    
-    <script src="http://unpkg.com/tone"></script>
-    <script src="https://unpkg.com/vextab/releases/div.prod.js"></script>
-    <script src="{{ url_for('static', filename='js/audio.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/tabDisplay.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/visuals.js') }}"></script>
-</body>
-</html>
+
+{% endblock %}

@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Riff Trainer - Tab</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
-</head>
-<body>
-    <a href="/" class="header-option">Back</a>
+{% extends "base.html" %}
+
+{% block title %}
+    Tab
+{% endblock %}
+
+{% block content %}
+
     <div class="top-container">
         <img src="
         {% if favorited %}
@@ -46,12 +43,4 @@
     </div>
     </div>
     <input type="hidden" id="timeSignature" value="{{ time_signature }}">
-
-    <script src="http://unpkg.com/tone"></script>
-    <script src="https://unpkg.com/vextab/releases/div.prod.js"></script>
-    <script src="{{ url_for('static', filename='js/audio.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/cursorSync.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/tabDisplay.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/visuals.js') }}"></script>
-</body>
-</html>
+{% endblock %}

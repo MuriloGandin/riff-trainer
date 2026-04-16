@@ -67,7 +67,7 @@ window.addEventListener("load", () => {
             }
 
             const progress = currentLineTime / timePerLine;
-            const x = startX + progress * tabWidth;
+            const x = Math.round(startX + progress * tabWidth);
             return {x, y};
         }
 
@@ -88,7 +88,7 @@ window.addEventListener("load", () => {
 
             const {x, y} = timeToXY(currentTime)
 
-            cursorPB.style.left = `${x}px`;
+            cursorPB.style.transform = `translateX(${x-startX}px)`;
             cursorPB.style.top = `${y}px`;
             
             // Request the next frame to keep the animation going

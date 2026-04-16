@@ -32,8 +32,8 @@ document.querySelector("#bpm")?.addEventListener("change", (e) => {
     let value = parseInt(e.target.value) || 120;
     if (value < 40) {
         value = 40;
-    } else if (value > 300) {
-        value = 300;
+    } else if (value > 250) {
+        value = 250;
     }
     previewBpm = value;
     e.target.value = value; // Update the input to show the clamped value

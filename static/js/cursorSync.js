@@ -81,8 +81,8 @@ window.addEventListener("load", () => {
                 currentTime = currentTime % window.totalPreviewTime;
             } else {
                 if (currentTime >= window.totalPreviewTime) {
-                stopCursor()
-                return
+                    stopCursor()
+                    return
                 }
             }
 
@@ -99,12 +99,9 @@ window.addEventListener("load", () => {
             if (isPlaying) return;
 
             isPlaying = true;
+                
             requestAnimationFrame(updateCursor)
         }
-
-        document.querySelector("#preview").addEventListener("click", () => {
-            updateCursor();
-        })
 
         stopCursor = function() {
             // Stop the animation and reset the cursor position

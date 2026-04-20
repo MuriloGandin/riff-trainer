@@ -80,7 +80,7 @@ async function loadRiff(id) {
     return converted
 }
 
-let synth 
+let synth;
 
 function riffPlayer(bpm, convertedNotes) {
 
@@ -98,10 +98,11 @@ function riffPlayer(bpm, convertedNotes) {
     Tone.Transport.loopStart = 0;
     Tone.Transport.loopEnd = totalDuration;
 
+    let metronomeId = null;
     if (metronomeEnabled) {
         // Reset the metronome if it's active
-        let metronomeId;
-        if (metronomeId) {
+        
+        if (metronomeId !== null) {
             Tone.Transport.clear(metronomeId);
             metronomeId = null;
         }
@@ -126,12 +127,7 @@ function riffPlayer(bpm, convertedNotes) {
             }, totalDuration);
         }
 
-        
-        // Schedule the metronome to stop after the riff ends
-        Tone.Transport.scheduleOnce(() => {
-            Tone.Transport.clear(metronomeId);
-            metronomeId = null;
-        }, totalDuration);
+      
     }
 
     convertedNotes.forEach(note => {
@@ -145,7 +141,7 @@ function riffPlayer(bpm, convertedNotes) {
 
     // Wait for cursor and play the result
     window.startCursor();
-    Tone.Transport.start()
+    Tone.Transport.start();
 }
 
 function riffStop () {
@@ -168,21 +164,17 @@ document.querySelector("#metronome")?.addEventListener("change", function() {
     }
 })
 
-window.loopEnabled = false;
-document.querySelector("#loop")?.addEventListener("change", function() {
-    if (this.checked) {
-        window.loopEnabled = true;
-    } else {
-        window.loopEnabled = false;
-    }
-});
-
-
 document.querySelector("#preview").addEventListener("click", async function() {
 
     await Tone.start()
 
-
+    let loop = document.querySelector("#loop");
+        if (loop.checked) {
+            window.loopEnabled = true;
+        } else {
+            window.loopEnabled = false;
+        }
+        
     if(!synth) {
         synth = new Tone.PolySynth().toDestination()
     }

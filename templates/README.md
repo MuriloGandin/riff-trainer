@@ -8,15 +8,18 @@
 app.py controls the starting point of the API by fetching entries from riffs.db, it also manages the app routes and methods, making it possible to dynamically load HTML pages based on entries. The aplication data follows the following structure to render and sync tabs:
 #### SQLite → Flask → JSON → JavaScript → Tone.js/VexTab
 app.py fetches tablature specific info into the JSON format, so it can be accessed within the JavaScript files. In this scenario, the JSON can be converted both into visual VexTab notation and Tone.js auditive output.
+   
+This file is also used to manipulate Flask sessions via cookies to store and update info, such as
+recently accessed pages and favorited tablatures.
 
-### templates
-The basic structure of the pages
+### templates / base.html
+The basic structure of the pages, base.html contains a mold to be followed by the other pages
 
 #### index.html
 The homepage, where the user can access the main functions os the API, such as select and open a tablature
 
 #### tab.html
-The tab page render the VexTab tablature, it also contains the selected's tab audio, which is generated when the page is opened
+The tab page renders the VexTab tablature, it also contains the selected's tab audio, which is generated when the page is opened, and preview controls such as a togglable metronome and loop checkbox, as well as a bpm input field to control the playback speed
 
 
 ### static
@@ -24,6 +27,9 @@ These are files that shouldn't be altered by Flask
 
 #### styles.css
 This is the styles sheet, encharged of the visuals of the API, such as colors, positioning, fonts and alignement
+
+#### img
+This folder contains the images used for the visuals of the page
 
 #### audio.js 
 Structure: get JSON for the selected tab > convert atributes to Tone.JS notation > schedule all of converted tab's notes > play the preview when the user clicks a "preview" button
@@ -38,6 +44,9 @@ This file renders and updates the playback cursor in sync with the selected BPM.
 - updateCursor:
 - startCursor:
 - stopCursor:
+
+#### visuals.js
+This aditional script file is used mainly for DOM managing and dynamic styling
 
 ### riffs.db
 The project's database is where the tablatures are stored, as well as important information such as time signatures, naming and notes rhythm and pitch. It is useful for any information that needs to be persistent.
@@ -58,3 +67,5 @@ The JSON file should have the structure:
         ...
     ]
 }
+
+The JSON files used are stored in scripts/jsonFiles

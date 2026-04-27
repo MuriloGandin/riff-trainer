@@ -56,8 +56,9 @@ function calculateTotalTime(notes) {
         seemPositions.add(note.time);
 
         const noteValue = parseInt(note.duration);
+        // These variables calculate the duration of the note in seconds based on the BPM and adds it to the total time
         const beats = 4 / noteValue;
-        const durationSeconds = beats * (60 / previewBpm);
+        const durationSeconds = beats * (60 / previewBpm); 
         totalTime += durationSeconds
     };
 
@@ -75,16 +76,18 @@ async function loadRiff(id) {
 
     const converted = convertNotes(notes)
 
+    // IMPORTANT: This global variable contains the total time of the song in seconds, widely used in this and other files
     window.totalPreviewTime = calculateTotalTime(converted)
     
     return converted
 }
 
+// Initialize the synth outside the player function to avoid creating multiple instances on each play
 let synth;
 
 function riffPlayer(bpm, convertedNotes) {
 
-    // Reset the sequences player's position
+    // Reset the sequences player's position and clear past scheduled sounds to avoid overlapping
     Tone.Transport.stop();
     Tone.Transport.cancel();
     Tone.Transport.position = 0;
@@ -145,6 +148,7 @@ function riffPlayer(bpm, convertedNotes) {
 }
 
 function riffStop () {
+    // Pause all sounds and reset transport to avoid overlapping on next play
     Tone.Transport.stop();
     Tone.Transport.cancel();
     Tone.Transport.position = 0;
@@ -156,6 +160,7 @@ function riffStop () {
 }
 
 let metronomeEnabled = false;
+// Toggle metronome on/off
 document.querySelector("#metronome")?.addEventListener("change", function() {
     if (this.checked) {
         metronomeEnabled = true;
@@ -168,6 +173,7 @@ document.querySelector("#preview").addEventListener("click", async function() {
 
     await Tone.start()
 
+    // Handle each of the toggle options
     let loop = document.querySelector("#loop");
         if (loop.checked) {
             window.loopEnabled = true;

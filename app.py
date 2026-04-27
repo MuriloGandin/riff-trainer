@@ -10,6 +10,8 @@ app.secret_key = "oksdokSVMoDgeior12fsa232"
 @app.route("/", methods=["GET", "POST"])
 def index():
 
+    # Create session variables if they haaven't been declared yet
+
     if "recent" not in session:
         session["recent"] = []
 
@@ -19,15 +21,21 @@ def index():
     conn = sqlite3.connect("riffs.db")
     cursor = conn.cursor()
 
+    # Query the database for tab indormation
+
     tabInfo = cursor.execute(
         """
         SELECT name, dificulty
         FROM riffs
         """).fetchall()
 
+    # Get the session's favorites and recent lists
+
     favorites = session.get("favorites", [])
 
     recent = session.get("recent", [])
+
+    # Render the main page with database and session info
 
     return render_template("index.html", tabInfo=tabInfo, recent=recent, favorites=favorites)
 
@@ -38,6 +46,8 @@ def tab():
     
     conn = sqlite3.connect("riffs.db")
     cursor = conn.cursor()
+
+    # Get the selected riff's id and time signature, block invalid selections
 
     try:
         selectedId = cursor.execute(
@@ -62,12 +72,17 @@ def tab():
     if "recent" not in session:
         session["recent"] = []
 
+    # Avoid duplicates
+
     if chosen in session["recent"]:
         session["recent"].remove(chosen)
+
+    # Add the selected riff to recent, limit to 5 entries
 
     session["recent"].insert(0, chosen)
     session["recent"] = session["recent"][:5]
 
+    # Pass the favorited status of the selected riff to the tab page
 
     if selectedId in session["favorites"]:
         favorited = True
@@ -77,6 +92,8 @@ def tab():
     cursor.close()
 
     return render_template("tab.html", exercise=chosen, id=selectedId, time_signature=selectedTimeSignature, favorited=favorited)
+
+# API route to render the selected riff as a JSON object and use it in the JavaScript codes
 
 @app.route("/riff/<int:riff_id>")
 def get_riff(riff_id):
@@ -109,6 +126,8 @@ def get_riff(riff_id):
 
     return jsonify(notes_list)
 
+# API route to toggle the favorited status of a riff and update the session variable
+
 @app.route("/toggle-favorite", methods=["POST"])
 def toggle_favorite():
     riff_id = str(request.json.get("riff_id"))
@@ -116,12 +135,16 @@ def toggle_favorite():
     if "favorites" not in session:
         session["favorites"] = []
 
+    # Toggle logic for the favorited status of the selected riff
+
     if int(riff_id) in session["favorites"]:
         session["favorites"].remove(int(riff_id))
         favorited = False
     else:
         session["favorites"].append(int(riff_id))
         favorited = True
+
+    # Save the session changes
 
     session.modified = True
 

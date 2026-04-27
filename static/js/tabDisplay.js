@@ -9,10 +9,12 @@ async function loadTab(id) {
 function formatNote(note) {
     let notation = note.notation;
 
+
     if (notation === null) notation = "";
     else if (notation === "v") notation = "d";
     else if (notation === "^") notation = "u";
 
+    // Format the note to match VexTab's input format
     return `${note.fret}${notation}/${note.string}`;
 }
 
@@ -20,6 +22,8 @@ function renderTab(notes) {
     // Use VexTab to render the tab based on the JSON data
     let barsPerLine = 3; // Default beats per line
     let timeSignature = document.querySelector("#timeSignature").value; // Default time signature
+
+    // Default spacing and options for the tab
     
     const tabOptions1 = `options space=20 tab-stems=true\n`
     const tabOptions2 = `\n options space=50`
@@ -55,7 +59,10 @@ function renderTab(notes) {
         let pos = positions[i];
         let notesAtPosition = groupedNotes[pos];
 
+        // Rhythm for standard notes
         let tabNoteRhythm = parseInt(notesAtPosition[0].duration);
+        // Rhythm for triplets
+            // TODO
 
         // Bar lines and line breaks
         if (pos % 4 === 0 && pos !== 0) {
@@ -65,6 +72,7 @@ function renderTab(notes) {
             bar = ``;
         }
 
+        // Vextab compatible line breaks
         if (totalCompasses > barsPerLine) {
             bar = `\n ${staveGap} tabstave time=${timeSignature}/4 \n notes `;
             totalCompasses = 1;
@@ -80,10 +88,12 @@ function renderTab(notes) {
         noteSection += ` ${bar} :${tabNoteRhythm} ${tabNote}`;
     }
 
+    // Unite all the options and notes to create a full VexTab string
     const data = `
     ${tabOptions1} tabstave time=${timeSignature}/4 \n notes =|: ${noteSection} =:| ${tabOptions2}
     `
 
+    // Initialize the VexTab renderer
     const VF = vextab.Vex.Flow
 
     const renderer = new VF.Renderer($('#notation')[0],
@@ -93,6 +103,7 @@ function renderTab(notes) {
     const artist = new vextab.Artist(10, 10, 680, { scale: 1.0 });
     const tab = new vextab.VexTab(artist);
 
+    // Parse the VexTab string to effectively render the tab on the page
     tab.parse(data);
     artist.render(renderer);
 }

@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const search = document.querySelector("#searchInput");
     const riffList = document.querySelectorAll(".riff-item");
 
+    // Search logic to filter riffs based on user input, case-insensitive
     search.addEventListener("input", function() {
         const value = this.value.toLowerCase();
 
@@ -34,6 +35,7 @@ function formatRiffName(name) {
 const riffButtons = document.querySelectorAll(".riff-item button .riff-name");
 
 riffButtons.forEach(button => {
+    // Format the riff names for a better display
     const originalText = button.innerText;
     const formattedText = formatRiffName(originalText);
 
@@ -41,6 +43,7 @@ riffButtons.forEach(button => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
+    // Format the title in the tablature page
     const tabTitle = document.querySelector(".tab-title");
     if (tabTitle) {
         const originalText = tabTitle.textContent;
@@ -53,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
     favoriteIcon.addEventListener("click", async () => {
         const riffId = favoriteIcon.dataset.id
 
+        // Send a request to the server to toggle the favorited status of the selected riff and update the icon accordingly
         const response = await fetch("/toggle-favorite", {
         method: "POST",
         headers: {
@@ -62,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     
         const data = await response.json()
+
 
         if (data.favorited) {
             favoriteIcon.src = favoriteIcon.dataset.filled

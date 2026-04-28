@@ -39,13 +39,36 @@ document.querySelector("#bpm")?.addEventListener("change", (e) => {
     e.target.value = value; // Update the input to show the clamped value
 });
 
+function durationToBeats(duration) {
+    const value = String(duration).trim();
+    const triplet = value.endsWith("t");
+    const dotted = value.includes(".");
+    const match = value.match(/^(\d+)(?:n|t)?(?:\.)?$/);
+
+    if (!match) {
+        return 0;
+    }
+
+    const denominator = Number(match[1]);
+    let beats = 4 / denominator;
+
+    if (triplet) {
+        beats /= 1.5; // triplet division: 3 in the time of 2
+    }
+
+    if (dotted) {
+        beats *= 1.5; // dotted note adds half the value again
+    }
+
+    return beats;
+}
+
 function calculateTotalTime(notes) {
     let totalTime = 0;
     // Use a Set to track seen positions and avoid double-counting chord notes
     let seemPositions = new Set();
 
-    for(let i = 0; i < notes.length; i++) {
-        
+    for (let i = 0; i < notes.length; i++) {
         let note = notes[i];
 
         if (seemPositions.has(note.time)) {
@@ -55,14 +78,12 @@ function calculateTotalTime(notes) {
 
         seemPositions.add(note.time);
 
-        const noteValue = parseInt(note.duration);
-        // These variables calculate the duration of the note in seconds based on the BPM and adds it to the total time
-        const beats = 4 / noteValue;
-        const durationSeconds = beats * (60 / previewBpm); 
-        totalTime += durationSeconds
-    };
+        const beats = durationToBeats(note.duration);
+        const durationSeconds = beats * (60 / previewBpm);
+        totalTime += durationSeconds;
+    }
 
-    return totalTime
+    return totalTime;
 }
 
 // Import JSON file to get each riff's pitch and rhythm

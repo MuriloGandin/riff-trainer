@@ -15,7 +15,7 @@ function formatNote(note) {
     else if (notation === "^") notation = "u";
 
     // Format the note to match VexTab's input format
-    return `${note.fret}${notation}/${note.string}`;
+    return `${note.fret} ${notation} /${note.string}`;
 }
 
 function renderTab(notes) {
@@ -53,16 +53,28 @@ function renderTab(notes) {
         .map(Number)
         .sort((a, b) => a - b);
         
+    let tripletCounter = 0;
+
     // Loop through the ordered positions to build the tab notation, handling chords and rhythm values
     for (let i = 0; i < positions.length; i++) {
 
         let pos = positions[i];
         let notesAtPosition = groupedNotes[pos];
-
-        // Rhythm for standard notes
         let tabNoteRhythm = parseInt(notesAtPosition[0].duration);
+        let triplet = "";
+
         // Rhythm for triplets
-            // TODO
+        // Check for triplet (duration ending with "t")
+        if (notesAtPosition[0].duration.endsWith("t")) {
+            tripletCounter += 1;
+
+            if (tripletCounter === 3) {
+                triplet = "^3^";
+                tripletCounter = 0; // Reset counter after 3 notes
+            }
+        } else {
+            tripletCounter = 0; // Reset when non-triplet note appears
+        }
 
         // Bar lines and line breaks
         if (pos % 4 === 0 && pos !== 0) {
@@ -85,7 +97,7 @@ function renderTab(notes) {
             ? `(${chordNotes.join('.')})`
             : chordNotes[0];
 
-        noteSection += ` ${bar} :${tabNoteRhythm} ${tabNote}`;
+        noteSection += ` ${bar} :${tabNoteRhythm} ${tabNote} ${triplet}`;
     }
 
     // Unite all the options and notes to create a full VexTab string

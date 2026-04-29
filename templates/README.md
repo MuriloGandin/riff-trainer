@@ -57,7 +57,6 @@ This is a helper script, it is used to make it easier to insert new tablatures i
 Usage:
 - To insert a new riff: `python scripts/noteinsert.py --json_file path/to/riff.json`
 - To update notation for existing notes: `python scripts/noteinsert.py --json_file path/to/riff.json --update`
-
 The JSON file should have the structure:
 {
     "name": "riff_name",

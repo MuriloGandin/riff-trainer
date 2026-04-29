@@ -33,8 +33,26 @@ function formatRiffName(name) {
 }
 
 const riffButtons = document.querySelectorAll(".riff-item button .riff-name");
+const riffRecentButtons = document.querySelectorAll(".riff-recent-item button .riff-name");
+const riffFavoriteButtons = document.querySelectorAll(".riff-favorite-item button .riff-name");
 
 riffButtons.forEach(button => {
+    // Format the riff names for a better display
+    const originalText = button.innerText;
+    const formattedText = formatRiffName(originalText);
+
+    button.innerText = formattedText;
+});
+
+riffRecentButtons.forEach(button => {
+    // Format the riff names for a better display
+    const originalText = button.innerText;
+    const formattedText = formatRiffName(originalText);
+
+    button.innerText = formattedText;
+});
+
+riffFavoriteButtons.forEach(button => {
     // Format the riff names for a better display
     const originalText = button.innerText;
     const formattedText = formatRiffName(originalText);

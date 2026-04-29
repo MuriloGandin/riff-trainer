@@ -11,11 +11,15 @@ function formatNote(note) {
 
 
     if (notation === null) notation = "";
-    else if (notation === "v") notation = "d";
-    else if (notation === "^") notation = "u";
-
+    else if (notation === "v") {
+        notation = "d";
+        return `${note.fret} ${notation} /${note.string}`;
+    } else if (notation === "^") {
+        notation = "u";
+        return `${note.fret} ${notation} /${note.string}`;
+    }
     // Format the note to match VexTab's input format
-    return `${note.fret} ${notation} /${note.string}`;
+    return `${note.fret}/${note.string} ${notation}`;
 }
 
 function renderTab(notes) {

@@ -11,7 +11,7 @@
         <p>Continue practicing your riffs or explore new ones from the library below!</p>
         <h3>Favorites</h3>
         {% for tab in favorites %}
-                <form action="/tab" method="post" class="riff-item">
+                <form action="/tab" method="post" class="riff-favorite-item">
                         <input name="tab" type="hidden" value="{{ tabInfo[((tab)-1)][0] }}">
                         <button type="submit" class="riff-button">
                             <spam class="riff-name">{{ tabInfo[((tab)-1)][0] }}</spam>
@@ -21,7 +21,7 @@
 
         <h3>Recently Played</h3>
         {% for tab in recent %}
-                <form action="/tab" method="post" class="riff-item">
+                <form action="/tab" method="post" class="riff-recent-item">
                         <input name="tab" type="hidden" value="{{ tab }}">
                         <button type="submit" class="riff-button">
                             <spam class="riff-name">{{ tab }}</spam>

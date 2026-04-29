@@ -141,7 +141,8 @@ section {
 }
 
 .extreme {
-    color: #8b5cf6;
+    color: #3c11a1;
+    font-weight: bold;
 }
 
 .header-option {
@@ -167,7 +168,8 @@ section {
     cursor: pointer;
 }
 
-.riff-item {
+.riff-item, .riff-favorite-item, .riff-recent-item {
+    display: flex;
     text-align: center;
     grid-column: 2;
 }

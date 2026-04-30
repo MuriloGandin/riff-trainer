@@ -10,9 +10,9 @@ def insert_riff_and_notes(riff_data):
     # Insert riff
     cursor.execute(
         """
-        INSERT INTO riffs (name, time_signature)
-        VALUES (?, ?)
-        """, (riff_data['name'], riff_data['time_signature'])
+        INSERT INTO riffs (name, time_signature, dificulty)
+        VALUES (?, ?, ?)
+        """, (riff_data['name'], riff_data['time_signature'], riff_data['dificulty'])
     )
 
     riff_id = cursor.lastrowid

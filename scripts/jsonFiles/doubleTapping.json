@@ -1,7 +1,7 @@
 {
     "name": "doubleTapping",
     "time_signature": "4/4",
-    "dificulty": "extreme",
+    "difficulty": "extreme",
     "notes": [
         {"string": 1, "fret": 12, "position": 0.0, "duration": "8t", "notation": "$.top.$ $[-$"},
         {"string": 1, "fret": 7, "position": 0.3333, "duration": "8t", "notation": "$.top.$ $-3-$"},

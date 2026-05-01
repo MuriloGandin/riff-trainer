@@ -25,7 +25,7 @@ def index():
 
     tabInfo = cursor.execute(
         """
-        SELECT name, dificulty
+        SELECT name, difficulty
         FROM riffs
         """).fetchall()
 

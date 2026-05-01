@@ -1,7 +1,7 @@
 {
     "name": "regularTapping",
     "time_signature": "4/4",
-    "dificulty": "easy",
+    "difficulty": "easy",
     "notes": [
         {"string": 1, "fret": 12, "position": 0.0, "duration": "16n", "notation": "$.top.$ $T$"},
         {"string": 1, "fret": 0, "position": 0.25, "duration": "16n", "notation": ""},

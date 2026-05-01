@@ -1,6 +1,7 @@
 {
     "name": "sweep",
     "time_signature": "3/4",
+    "difficulty": "hard",
     "notes": [
         {"string": 5, "fret": 10, "position": 0.0, "duration": "8n", "notation": "v"},
         {"string": 4, "fret": 9, "position": 0.5, "duration": "8n", "notation": "v"},

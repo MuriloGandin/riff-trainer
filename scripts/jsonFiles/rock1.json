@@ -1,6 +1,7 @@
 {
     "name": "rock1",
     "time_signature": "4/4",
+    "difficulty": "easy",
     "notes": [
         {"string": 6, "fret": 0, "position": 0.0, "duration": "4n"},
         {"string": 5, "fret": 2, "position": 0.0, "duration": "4n"},

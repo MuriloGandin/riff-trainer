@@ -97,6 +97,10 @@ section {
     gap: 0.75rem;
 }
 
+.placeholder-text {
+    color: rgb(158, 158, 158);
+}
+
 .exercises-selector {
   margin: 2rem auto 1.5rem;
   display: flex;
@@ -184,16 +188,16 @@ section {
 
 .tab-container {
     position: relative;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  width: 95%;
-  max-width: 1100px;
-  padding: 1rem;
-  border-radius: 1rem;
-  background: rgba(15, 23, 42, 0.88);
-  border: 1px solid var(--border);
-  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45);
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    width: 95%;
+    max-width: 1100px;
+    padding: 1rem;
+    border-radius: 1rem;
+    background: rgba(15, 23, 42, 0.88);
+    border: 1px solid var(--border);
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45);
 }
 
 #notation svg .vf-tabnote rect {
@@ -247,4 +251,26 @@ section {
     height: 70px;
     border-radius: 30px;
     opacity: 50%;
+}
+
+@media (max-width: 600px) {
+    .main-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .main-header nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .top-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .star-icon {
+        justify-self: center;
+        margin-right: 0;
+    }
 }

@@ -1,6 +1,7 @@
 {
     "name": "legatoRun",
     "time_signature": "4/4",
+    "difficulty": "medium",
     "notes": [
         {"string": 6, "fret": 1, "position": 0.0, "duration": "8t", "notation": "$.top.$ $[--$"},
         {"string": 6, "fret": 4, "position": 0.3333, "duration": "8t", "notation": "$.top.$ $-3-$"},

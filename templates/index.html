@@ -10,24 +10,32 @@
         <h2>Keep Playing</h2>
         <p>Continue practicing your riffs or explore new ones from the library below!</p>
         <h3>Favorites</h3>
-        {% for tab in favorites %}
-                <form action="/tab" method="post" class="riff-favorite-item">
-                        <input name="tab" type="hidden" value="{{ tabInfo[((tab)-1)][0] }}">
-                        <button type="submit" class="riff-button">
-                            <spam class="riff-name">{{ tabInfo[((tab)-1)][0] }}</spam>
-                        </button>
-                </form>
-        {% endfor %}
+        {% if favorites %}
+            {% for tab in favorites %}
+                    <form action="/tab" method="post" class="riff-favorite-item">
+                            <input name="tab" type="hidden" value="{{ tabInfo[((tab)-1)][0] }}">
+                            <button type="submit" class="riff-button">
+                                <spam class="riff-name">{{ tabInfo[((tab)-1)][0] }}</spam>
+                            </button>
+                    </form>
+            {% endfor %}
+        {% else %}
+            <p class="placeholder-text">Your favorited riffs will be shown here</p>
+        {% endif %}
 
         <h3>Recently Played</h3>
-        {% for tab in recent %}
-                <form action="/tab" method="post" class="riff-recent-item">
-                        <input name="tab" type="hidden" value="{{ tab }}">
-                        <button type="submit" class="riff-button">
-                            <spam class="riff-name">{{ tab }}</spam>
-                        </button>
-                </form>
-        {% endfor %}
+        {% if recent %}
+            {% for tab in recent %}
+                    <form action="/tab" method="post" class="riff-recent-item">
+                            <input name="tab" type="hidden" value="{{ tab }}">
+                            <button type="submit" class="riff-button">
+                                <spam class="riff-name">{{ tab }}</spam>
+                            </button>
+                    </form>
+            {% endfor %}
+        {% else %}
+            <p class="placeholder-text">Your recently played riffs will be shwon here</p>
+        {% endif %}
     </section>
 
     <h3>Riff Library</h3>

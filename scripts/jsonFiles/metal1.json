@@ -1,6 +1,7 @@
 {
     "name": "metal1",
     "time_signature": "4/4",
+    "difficulty": "medium",
     "notes": [
         {"string": 6, "fret": 1, "position": 0.0, "duration": "8n"},
         {"string": 5, "fret": 3, "position": 0.0, "duration": "8n"},

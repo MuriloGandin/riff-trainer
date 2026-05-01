@@ -1,6 +1,7 @@
 {
     "name": "alternate",
     "time_signature": "4/4",
+    "difficulty": "medium",
     "notes": [
         {"string": 6, "fret": 5, "position": 0.0, "duration": "8n", "notation": "v"},
         {"string": 6, "fret": 6, "position": 0.5, "duration": "8n", "notation": "^"},

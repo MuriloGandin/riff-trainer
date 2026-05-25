@@ -3,6 +3,7 @@ import sqlite3
 import argparse
 import json
 
+
 def insert_riff_and_notes(riff_data):
     conn = sqlite3.connect("riffs.db")
     cursor = conn.cursor()
@@ -56,6 +57,7 @@ def update_notation_for_existing_riff(riff_name, notes_with_notation):
     conn.commit()
     conn.close()
     print(f"Updated notation for {len(notes_with_notation)} notes in riff '{riff_name}'.")
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Insert or update riffs and notes in the database.")

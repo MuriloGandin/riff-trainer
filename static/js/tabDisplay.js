@@ -8,8 +8,6 @@ async function loadTab(id) {
 
 function formatNote(note) {
     let notation = note.notation;
-
-
     if (notation === null) notation = "";
     else if (notation === "v") {
         notation = "d";
@@ -124,6 +122,8 @@ function renderTab(notes) {
     artist.render(renderer);
 }
 
-document.addEventListener("DOMContentLoaded", () => { 
-    loadTab(document.querySelector("#tabId").dataset.id)
-})
+const tablature = document.querySelector("#tabId");
+
+if (tablature) {
+    loadTab(tablature.dataset.id);
+}

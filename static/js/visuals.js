@@ -1,8 +1,8 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const search = document.querySelector("#searchInput");
-    const riffList = document.querySelectorAll(".riff-item");
+const search = document.querySelector("#searchInput");
+const riffList = document.querySelectorAll(".riff-item");
 
-    // Search logic to filter riffs based on user input, case-insensitive
+// Search logic to filter riffs based on user input, case-insensitive
+if (search) {
     search.addEventListener("input", function() {
         const value = this.value.toLowerCase();
 
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
-})
+}
 
 
 // Format riff names for display

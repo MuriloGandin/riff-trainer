@@ -14,8 +14,10 @@ window.addEventListener("load", () => {
 
         function initCursor() {
             // Ensures the cursor is positioned correctly relative to the tab, even on window resize
+            if (container && tabElement) {
             const containerRect = container.getBoundingClientRect();
             const rect = tabElement.getBoundingClientRect();
+            
 
             startX = rect.left - containerRect.left + 50;
             startY = rect.top - containerRect.top + 77;
@@ -38,6 +40,7 @@ window.addEventListener("load", () => {
             // Reset cursor position
             cursorPB.style.left = `${startX}px`;
             cursorPB.style.top = `${startY}px`;
+        }
         }
 
         initCursor(); // Initial calculation
@@ -112,9 +115,11 @@ window.addEventListener("load", () => {
         }
 
         let stopButton = document.querySelector("#preview-stop");
+        if (stopButton) {
         stopButton.addEventListener("click", () => {
             stopCursor();
         })
+    }
 
     }, 100);
 });

@@ -9,6 +9,7 @@
     <section class="keep-playing">
         <h2>Keep Playing</h2>
         <p>Continue practicing your riffs or explore new ones from the library below!</p>
+
         <h3>Favorites</h3>
         {% if favorites %}
             {% for tab in favorites %}
@@ -43,17 +44,16 @@
         <input type="text" id="searchInput" placeholder="Search riffs..." autocomplete="off"> 
         <div class="exercises-selector">
             {% for tab in tabInfo %}
-
                 <form action="/tab" method="post" class="riff-item">
                     <input name="tab" type="hidden" value="{{ tab[0] }}">
                     <button type="submit" class="riff-button">
                         <spam class="riff-name">{{ tab[0] }}</spam>
                         <span class="difficulty
-                        {% if tab[1] == 'easy' %}easy
-                        {% elif tab[1] == 'medium' %}medium
-                        {% elif tab[1] == 'hard' %}hard
-                        {% elif tab[1] == 'extreme' %}extreme
-                        {% endif %}">
+                            {% if tab[1] == 'easy' %}easy
+                            {% elif tab[1] == 'medium' %}medium
+                            {% elif tab[1] == 'hard' %}hard
+                            {% elif tab[1] == 'extreme' %}extreme
+                            {% endif %}">
                             [{{ tab[1] }}]
                         </span>
                     </button>

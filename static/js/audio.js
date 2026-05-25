@@ -105,6 +105,7 @@ async function loadRiff(id) {
 
 // Initialize the synth outside the player function to avoid creating multiple instances on each play
 let synth;
+let metronomeId = null;
 
 function riffPlayer(bpm, convertedNotes) {
 
@@ -122,7 +123,7 @@ function riffPlayer(bpm, convertedNotes) {
     Tone.Transport.loopStart = 0;
     Tone.Transport.loopEnd = totalDuration;
 
-    let metronomeId = null;
+    metronomeId = null;
     if (metronomeEnabled) {
         // Reset the metronome if it's active
         
@@ -190,7 +191,7 @@ document.querySelector("#metronome")?.addEventListener("change", function() {
     }
 })
 
-document.querySelector("#preview").addEventListener("click", async function() {
+document.querySelector("#preview")?.addEventListener("click", async function() {
 
     await Tone.start()
 
@@ -215,6 +216,6 @@ document.querySelector("#preview").addEventListener("click", async function() {
     riffPlayer(previewBpm, converted)
 })
 
-document.querySelector("#preview-stop").addEventListener("click", () => {
+document.querySelector("#preview-stop")?.addEventListener("click", () => {
     riffStop();
 })

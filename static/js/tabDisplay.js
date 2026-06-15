@@ -105,10 +105,10 @@ function renderTab(notes) {
     // Unite all the options and notes to create a full VexTab string
     const data = `
     ${tabOptions1} tabstave time=${timeSignature}/4 \n notes =|: ${noteSection} =:| ${tabOptions2}
-    `
+    `;
 
     // Initialize the VexTab renderer
-    const VF = vextab.Vex.Flow
+    const VF = vextab.Vex.Flow;
 
     const renderer = new VF.Renderer($('#notation')[0],
         VF.Renderer.Backends.SVG);

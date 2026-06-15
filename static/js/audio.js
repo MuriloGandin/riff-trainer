@@ -9,12 +9,10 @@ const tuning = {
 };
 
 const tabToNote = (string, fret) => {
-
-    const base = tuning[string]
-
+    const base = tuning[string];
     // Transpose the note a semitone for each fret
-    return Tone.Frequency(base).transpose(fret).toNote()
-}
+    return Tone.Frequency(base).transpose(fret).toNote();
+};
 
 // Convert the original array to a Tone.js compatible array
 const convertNotes = (notes) => {
@@ -22,10 +20,13 @@ const convertNotes = (notes) => {
         pitch: tabToNote(note.string, note.fret),
         duration: note.duration,
         time: note.position
-    }))
-}
+    }));
+};
 
 let previewBpm = 120; // Default value
+
+// Ensure loop flag has a defined initial value
+window.loopEnabled = false;
 
 // Update BPM whenever user changes the input
 document.querySelector("#bpm")?.addEventListener("change", (e) => {
@@ -89,24 +90,23 @@ function calculateTotalTime(notes) {
 // Import JSON file to get each riff's pitch and rhythm
 async function loadRiff(id) {
     
-    const response = await fetch(`/riff/${id}`)
+    const response = await fetch(`/riff/${id}`);
 
-    const notes = await response.json()
+    const notes = await response.json();
 
     // At this point, the JSON is loaded
 
-    const converted = convertNotes(notes)
+    const converted = convertNotes(notes);
 
     // IMPORTANT: This global variable contains the total time of the song in seconds, widely used in this and other files
-    window.totalPreviewTime = calculateTotalTime(converted)
-    
-    return converted
+    window.totalPreviewTime = calculateTotalTime(converted);
+
+    return converted;
 }
 
 // Initialize the synth outside the player function to avoid creating multiple instances on each play
 let synth;
 let metronomeId = null;
-
 function riffPlayer(bpm, convertedNotes) {
 
     // Reset the sequences player's position and clear past scheduled sounds to avoid overlapping
@@ -123,35 +123,32 @@ function riffPlayer(bpm, convertedNotes) {
     Tone.Transport.loopStart = 0;
     Tone.Transport.loopEnd = totalDuration;
 
-    metronomeId = null;
+    // Clear any previously scheduled metronome before scheduling a new one
+    if (metronomeId !== null) {
+        Tone.Transport.clear(metronomeId);
+        metronomeId = null;
+    }
+
     if (metronomeEnabled) {
-        // Reset the metronome if it's active
-        
-        if (metronomeId !== null) {
-            Tone.Transport.clear(metronomeId);
-            metronomeId = null;
-        }
-        
         // Clock sound for the metronome
         const metronome = new Tone.Synth({
             oscillator: { type: "sine" },
             envelope: { attack: 0.001, decay: 0.05, sustain: 0, release: 0.1 }
         }).toDestination();
-        
+
         // Schedule repeating metronome clicks
         metronomeId = Tone.Transport.scheduleRepeat((time) => {
-            metronome.triggerAttackRelease("C6", "32n", time);
+                metronome.triggerAttackRelease("C6", "32n", time);
         }, secondsPerBeat);
 
         if (!window.loopEnabled) {
             Tone.Transport.scheduleOnce(() => {
-                if (metronomeId) {
+                if (metronomeId !== null) {
                     Tone.Transport.clear(metronomeId);
                     metronomeId = null;
                 }
             }, totalDuration);
         }
-
       
     }
 
@@ -160,8 +157,8 @@ function riffPlayer(bpm, convertedNotes) {
         const timeInSeconds = secondsPerBeat * note.time;
 
         Tone.Transport.schedule((time) => {
-            synth.triggerAttackRelease(note.pitch, note.duration, time)
-        }, timeInSeconds)
+            synth.triggerAttackRelease(note.pitch, note.duration, time);
+        }, timeInSeconds);
     });
 
     // Wait for cursor and play the result
@@ -175,7 +172,7 @@ function riffStop () {
     Tone.Transport.cancel();
     Tone.Transport.position = 0;
     // Clear metronome if active
-    if (metronomeId) {
+    if (metronomeId !== null) {
         Tone.Transport.clear(metronomeId);
         metronomeId = null;
     }
@@ -189,33 +186,35 @@ document.querySelector("#metronome")?.addEventListener("change", function() {
     } else {
         metronomeEnabled = false;
     }
-})
+});
 
 document.querySelector("#preview")?.addEventListener("click", async function() {
 
-    await Tone.start()
+    await Tone.start();
 
     // Handle each of the toggle options
-    let loop = document.querySelector("#loop");
-        if (loop.checked) {
-            window.loopEnabled = true;
-        } else {
-            window.loopEnabled = false;
-        }
-        
-    if(!synth) {
-        synth = new Tone.PolySynth().toDestination()
-    }
-    const id = document.querySelector("#tabId").dataset.id
-    if (id == "inexistent") {
-        alert ("Preview unavaliable")
-        return
-    }
-    const converted = await loadRiff(id)
+    window.loopEnabled = false;
 
-    riffPlayer(previewBpm, converted)
-})
+    let loop = document.querySelector("#loop");
+    if (loop.checked) {
+        window.loopEnabled = true;
+    } else {
+        window.loopEnabled = false;
+    }
+
+    if (!synth) {
+        synth = new Tone.PolySynth().toDestination();
+    }
+    const id = document.querySelector("#tabId").dataset.id;
+    if (id == "inexistent") {
+        alert("Preview unavaliable");
+        return;
+    }
+    const converted = await loadRiff(id);
+
+    riffPlayer(previewBpm, converted);
+});
 
 document.querySelector("#preview-stop")?.addEventListener("click", () => {
     riffStop();
-})
+});

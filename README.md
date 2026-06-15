@@ -71,3 +71,9 @@ The JSON file should have the structure:
 }
 
 The JSON files used are stored in scripts/jsonFiles
+
+REFERENCES:
+- VexTab documentation: https://www.vexflow.com/vextab/docs/
+- Tone.js documentation: https://tonejs.github.io/docs/
+- ChatGPT for structural and organizational advice, as well as for library usage and code snippets
+- Copilot for code generation and problem-solving

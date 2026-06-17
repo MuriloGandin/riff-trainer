@@ -1,7 +1,6 @@
 // This file makes the tablature cursor work in sync with the audio
 
 window.addEventListener("load", () => {
-    setTimeout(() => {
 
         let cursorPB = document.querySelector(".playback-cursor");
         let isPlaying = false;
@@ -41,9 +40,20 @@ window.addEventListener("load", () => {
             cursorPB.style.left = `${startX}px`;
             cursorPB.style.top = `${startY}px`;
         }
+    }
+
+        function waitForTab() {
+            const staves = document.querySelectorAll("#notation svg .vf-stave");
+
+            if (staves.length === 0 || tabElement.clientWidth === 0) {
+                requestAnimationFrame(waitForTab);
+                return;
+            }
+
+            initCursor();
         }
 
-        initCursor(); // Initial calculation
+        waitForTab(); // Initial calculation
 
         // Recalculate on window resize
         window.addEventListener('resize', initCursor);
@@ -121,5 +131,4 @@ window.addEventListener("load", () => {
         })
     }
 
-    }, 500);
 });

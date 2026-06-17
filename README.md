@@ -16,6 +16,22 @@ This project is a web application that allows users to view guitar tablatures an
 - Store and manage tablatures in a SQLite database for easy retrieval and updates.
 - Use Flask sessions to track recently accessed pages and favorited tablatures for a personalized experience.
 
+# How to execute locally
+1. Clone the repository and navigate to the project directory.
+2. Create a virtual environment and activate it:
+    ```
+    python -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    ```
+3. Install the required Python packages using pip:
+    ```
+    pip install -r requirements.txt
+    ```
+4. Run the Flask application:
+    ```
+    python app.py
+    ```
+    5. Follow the instructions in the terminal to access the application in your web browser, typically at `http://localhost:5000`.
 # Design Choices
 
 One of the main design decisions was to separate tablature rendering, audio generation, cursor synchronization, and DOM manipulation into independent JavaScript files. Although combining these features into a single script would have reduced the number of files, separating responsibilities makes the code easier to maintain and extend.

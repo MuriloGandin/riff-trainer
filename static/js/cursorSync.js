@@ -17,7 +17,7 @@ window.addEventListener("load", () => {
             if (container && tabElement) {
             const containerRect = container.getBoundingClientRect();
             const rect = tabElement.getBoundingClientRect();
-            
+
 
             startX = rect.left - containerRect.left + 50;
             startY = rect.top - containerRect.top + 77;
@@ -25,8 +25,8 @@ window.addEventListener("load", () => {
             // Defines the allowed position for cursor
             tabWidth = tabElement.clientWidth - 70;
             endX = startX + tabWidth;
-            
-          
+
+
             // store Y positions of staves and the total of staves in an array of objects
             const staves = document.querySelectorAll("#notation svg .vf-stave")
             staveMap = Array.from(staves).map((stave, index) => {
@@ -55,13 +55,13 @@ window.addEventListener("load", () => {
             timePerLine = totalTime / totalStaves;
             currentLineTime = currentTime % timePerLine;
             let currentLineIndex = Math.floor(currentTime / timePerLine);
-            
+
             if (totalStaves > 1) {
                 // Calculate the gap between staves using the first two staves in the staveMap
                 staveGap = staveMap[1].yPos - staveMap[0].yPos;
             }
-            
-            
+
+
             if (currentLineIndex === 0) {
                 y = startY;
             } else {
@@ -93,7 +93,7 @@ window.addEventListener("load", () => {
 
             cursorPB.style.transform = `translateX(${x-startX}px)`;
             cursorPB.style.top = `${y}px`;
-            
+
             // Request the next frame to keep the animation going
             animationId = requestAnimationFrame(updateCursor);
         }
@@ -102,7 +102,7 @@ window.addEventListener("load", () => {
             if (isPlaying) return;
 
             isPlaying = true;
-                
+
             requestAnimationFrame(updateCursor)
         }
 
@@ -121,5 +121,5 @@ window.addEventListener("load", () => {
         })
     }
 
-    }, 100);
+    }, 500);
 });
